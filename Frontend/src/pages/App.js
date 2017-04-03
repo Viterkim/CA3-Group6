@@ -5,12 +5,25 @@ import { observer } from "mobx-react";
 
 import {useStrict} from "..//stores/useStrict"
 
+// import { NavBar, NavItem } from 'react-materialize';
+
 const App = observer(class App extends Component {
 
   render() {
     const logInStatus = auth.loggedIn ? "Logged in as: " + auth.userName : "";
     return (
       <div>
+
+        {/*<NavBar brand='Book Store' left>*/}
+          {/*<NavItem href='/'>Home</NavItem>*/}
+          {/*<NavItem href='/docs'>Documentation</NavItem>*/}
+          {/*<NavItem href='/'>Products</NavItem>*/}
+          {/*<NavItem href='/company'>Company</NavItem>*/}
+          {/*<NavItem href='#'>Add/Edit Books</NavItem>*/}
+          {/*<NavItem href='#'>Add/Edit Users</NavItem>*/}
+          {/*<NavItem href='/login'>Login</NavItem>*/}
+        {/*</NavBar>*/}
+
         <nav className="navbar navbar-default" >
           <div className="container-fluid">
             <div className="navbar-header">
@@ -37,6 +50,7 @@ const App = observer(class App extends Component {
             </ul>
           </div>
         </nav>
+
         {this.props.children || <p>You are {!auth.loggedIn && 'not'} logged in.</p>}
       </div>
     )
