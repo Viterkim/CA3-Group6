@@ -21,8 +21,8 @@ const App = observer(class App extends Component {
           <NavItem href='/company'>Company</NavItem>
           <NavItem href='#'>Add/Edit Books</NavItem>
           <NavItem href='#'>Add/Edit Users</NavItem>
-          {/*{auth.isUser ? <li><Link to="/user">Page for Users </Link></li> : null}*/}
-          {/*{auth.isAdmin ? <li><Link to="/admin">Page for Admins </Link></li> : null}*/}
+          {auth.isUser ? <li><Link to="/user">Page for Users </Link></li> : null}
+          {auth.isAdmin ? <li><Link to="/admin">Page for Admins </Link></li> : null}
           <NavItem href='/login'>Login</NavItem>
         </Navbar>
 
