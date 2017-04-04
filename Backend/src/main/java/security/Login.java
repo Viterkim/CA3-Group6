@@ -37,10 +37,10 @@ public class Login {
       String username = json.get("username").getAsString();
       String password = json.get("password").getAsString();
       JsonObject responseJson = new JsonObject();
-      List<String> roles;
+      String role;
 
-      if ((roles = authenticate(username, password)) != null) {
-        String token = createToken(username, roles);
+      if ((role = authenticate(username, password)) != null) {
+        String token = createToken(username, role);
         responseJson.addProperty("username", username);
         responseJson.addProperty("token", token);
         return Response.ok(new Gson().toJson(responseJson)).build();
@@ -53,18 +53,21 @@ public class Login {
     throw new NotAuthorizedException("Invalid username or password. Please try again", Response.Status.UNAUTHORIZED);
   }
 
-  private List<String> authenticate(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
+  private String authenticate(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
     IUserFacade facade = UserFacadeFactory.getInstance();
     return facade.authenticateUser(userName, password);
   }
 
-  private String createToken(String subject, List<String> roles) throws JOSEException {
+  private String createToken(String subject, String role) throws JOSEException {
     StringBuilder res = new StringBuilder();
+    res.append(role);
+    /*
     for (String string : roles) {
       res.append(string);
       res.append(",");
     }
-    String rolesAsString = res.length() > 0 ? res.substring(0, res.length() - 1) : "";
+    */
+    String rolesAsString = res.toString(); //res.length() > 0 ? res.substring(0, res.length() - 1) : "";
     String issuer = "semester3demo-cphbusiness.dk-computerScience";
 
     
@@ -87,7 +90,7 @@ public class Login {
     JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
             .subject(subject)
             .claim("username", subject)
-            .claim("roles", roles)
+            .claim("roles", role)
             .claim("issuer", issuer)
             .issueTime(date)
             .expirationTime(new Date(date.getTime() + 1000 * 60 * 60))

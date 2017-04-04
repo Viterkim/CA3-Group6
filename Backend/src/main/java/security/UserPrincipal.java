@@ -10,13 +10,13 @@ REF: http://scytl.github.io/restguide/#_security_2
 public class UserPrincipal implements Principal {
  private String username; 
 
-  private List<String> roles = new ArrayList<>();
+  private String role = null;
 
   
-  public UserPrincipal(String username, List<String> roles) {
+  public UserPrincipal(String username, String role) {
     super();
     this.username = username;
-    this.roles = roles;
+    this.role = role;
   }
 
   @Override
@@ -25,6 +25,6 @@ public class UserPrincipal implements Principal {
   }
 
   public boolean isUserInRole(String role) { 
-    return this.roles.contains(role);
+    return this.role.equals(role);
   }
 }

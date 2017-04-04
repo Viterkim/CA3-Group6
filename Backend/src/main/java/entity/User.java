@@ -1,13 +1,9 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import security.IUser;
 import security.PasswordStorage;
 
@@ -22,12 +18,8 @@ public class User implements IUser, Serializable{
   @Column(length = 35, name = "USER_NAME",nullable = false)
   private String userName;
   
-  @ManyToMany
-  List<Role> roles;
+  private String role;
   
-  @OneToMany(mappedBy="user")
-  private List<Book> phones;
- 
   public User() throws PasswordStorage.CannotPerformOperationException {
   }
 
@@ -36,31 +28,14 @@ public class User implements IUser, Serializable{
     this.passwordHash = PasswordStorage.createHash(password);
   }
   
-  
-  public void addRole(Role role){
-    if(roles == null){
-      roles = new ArrayList();
-    }
-    roles.add(role);
-    role.addUser(this);
+  public void setRole(String role){
+      this.role = role;
   }
   
-  public List<Role> getRoles(){
-    return roles;
+  public String getRole(){
+    return role;
   }
-    
-  @Override
-  public List<String> getRolesAsStrings() {
-   if (roles.isEmpty()) {
-            return null;
-        }
-        List<String> rolesAsStrings = new ArrayList();
-        for (Role role : roles) {
-            rolesAsStrings.add(role.getRoleName());
-        }
-        return rolesAsStrings;
-  }
- 
+  
   @Override
   public String getPassword() {
     return passwordHash;
@@ -71,16 +46,17 @@ public class User implements IUser, Serializable{
     this.passwordHash = password;
   }
 
-    public List<Book> getPhones()
+  /*
+    public List<Book> getBooks()
     {
-        return phones;
+        return books;
     }
 
-    public void setPhones(List<Book> phones)
+    public void setPhones(List<Book> books)
     {
-        this.phones = phones;
+        this.books = books;
     }
-
+    */
   
   
   @Override

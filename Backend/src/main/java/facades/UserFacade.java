@@ -10,33 +10,32 @@ import security.PasswordStorage;
 
 public class UserFacade implements IUserFacade {
 
-  EntityManagerFactory emf;
+    EntityManagerFactory emf;
+    EntityManager manager;
 
-  public UserFacade(EntityManagerFactory emf) {
-    this.emf = emf;   
-  }
-
-  private EntityManager getEntityManager() {
-    return emf.createEntityManager();
-  }
-
-  @Override
-  public IUser getUserByUserId(String id) {
-    EntityManager em = getEntityManager();
-    try {
-      return em.find(User.class, id);
-    } finally {
-      em.close();
+    public UserFacade(EntityManagerFactory emf) {
+        this.emf = emf;
     }
-  }
 
-  /*
-  Return the Roles if users could be authenticated, otherwise null
-   */
-  @Override
-  public List<String> authenticateUser(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException{
-    IUser user = getUserByUserId(userName);
-    return user != null && PasswordStorage.verifyPassword(password, user.getPassword()) ? user.getRolesAsStrings() : null;  
-  }
+    private EntityManager getEntityManager() {
+        if (manager == null) {
+            manager = emf.createEntityManager();
+        } 
+        return manager;
+    }
+
+    @Override
+    public User getUserByUserName(String name) {
+        return getEntityManager().find(User.class, name);
+    }
+
+    /*
+    Return the Roles if users could be authenticated, otherwise null
+     */
+    @Override
+    public String authenticateUser(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException{
+        User user = getUserByUserName(userName);
+        return user != null && PasswordStorage.verifyPassword(password, user.getPassword()) ? user.getRole() : null;  
+    }
 
 }
