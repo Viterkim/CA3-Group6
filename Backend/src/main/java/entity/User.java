@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import security.IUser;
 import security.PasswordStorage;
 
@@ -23,6 +24,9 @@ public class User implements IUser, Serializable{
   
   @ManyToMany
   List<Role> roles;
+  
+  @OneToMany(mappedBy="user")
+  private List<Book> phones;
  
   public User() throws PasswordStorage.CannotPerformOperationException {
   }
@@ -67,6 +71,18 @@ public class User implements IUser, Serializable{
     this.passwordHash = password;
   }
 
+    public List<Book> getPhones()
+    {
+        return phones;
+    }
+
+    public void setPhones(List<Book> phones)
+    {
+        this.phones = phones;
+    }
+
+  
+  
   @Override
   public String getUserName() {
     return userName;
