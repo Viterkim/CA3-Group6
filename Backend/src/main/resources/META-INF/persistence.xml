@@ -11,7 +11,7 @@
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="bookworm#17laesehest"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
-<!--      <property name="javax.persistence.sql-load-script-source" value="scripts/initalUserAndRolesSeed.sql"/>-->
+    <!--  <property name="javax.persistence.sql-load-script-source" value="scripts/initalUserAndRolesSeed.sql"/> -->
     </properties>
   </persistence-unit>
 </persistence>
