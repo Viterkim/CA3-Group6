@@ -19,7 +19,7 @@ const Home = observer(class Home extends Component {
               </p>
               <h1 className="header center orange-text text-lighten-2">Welcome to our project</h1>
               <div className="row center">
-                <h5 className="header col s12 light">A modern single page application</h5>
+                <h5 className="header col s12 light">A modern single page book store application</h5>
               </div>
               <div className="row center">
                 <Link to='/books' id="download-button" className="btn-large waves-effect waves-light orange lighten-1">Books</Link>

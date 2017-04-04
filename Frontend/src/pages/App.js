@@ -48,7 +48,7 @@ const App = observer(class App extends Component {
         {this.props.children}
 
         <div className="container">
-          <Footer copyrights="&copy; 2015 Copyright Text"
+          <Footer copyrights="&copy; 2017 Copyright"
                   moreLinks={
                     <a className="grey-text text-lighten-4 right" href="https://github.com/Viterkim/CA3-Group6" target="blank">Github Repo</a>
                   }
@@ -61,8 +61,8 @@ const App = observer(class App extends Component {
                   }
                   className='orange lighten-1'
           >
-            <h5 className="white-text">cphbusiness AP degree in Computer Science</h5>
-            <p className="grey-text text-lighten-4">We are group #6</p>
+            <h5 className="white-text">AP degree in Computer Science</h5>
+            <p className="grey-text text-lighten-4">Group #6 | cphbusinesss Lyngby</p>
           </Footer>
         </div>
 
@@ -72,30 +72,3 @@ const App = observer(class App extends Component {
 })
 
 export default App;
-
-{/*<nav className="navbar navbar-default" >*/}
-{/*<div className="container-fluid">*/}
-{/*<div className="navbar-header">*/}
-{/*<a className="navbar-brand" href="#">Semester Seed</a>*/}
-{/*</div>*/}
-{/*<ul className="nav navbar-nav">*/}
-{/*<li><Link to="/about">About</Link></li>*/}
-{/*{auth.isUser ? <li><Link to="/user">Page for Users </Link></li> : null}*/}
-{/*{auth.isAdmin ? <li><Link to="/admin">Page for Admins </Link></li> : null}*/}
-{/*<li><Link to="/dashboard">Dashboard (authenticated) </Link> </li>*/}
-{/*</ul>*/}
-{/*<ul className="nav navbar-nav navbar-right">*/}
-{/*<li className="navbar-text" style={{ color: "steelBlue" }}>{logInStatus}</li>*/}
-{/*<li>*/}
-{/*{auth.loggedIn ?*/}
-{/*(*/}
-{/*<Link to="/logout"><span className="glyphicon glyphicon-log-in"></span> Logout</Link>*/}
-{/*) :*/}
-{/*(*/}
-{/*<Link to="/login">*/}
-{/*<span className="glyphicon glyphicon-log-out"></span> Login </Link>*/}
-{/*)}*/}
-{/*</li>*/}
-{/*</ul>*/}
-{/*</div>*/}
-{/*</nav>*/}
