@@ -1,8 +1,12 @@
 package security;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.graph.GraphAdapterBuilder;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.*;
@@ -11,6 +15,7 @@ import facades.UserFacade;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotAuthorizedException;
@@ -23,6 +28,9 @@ import javax.ws.rs.core.Response;
 @Path("login")
 public class Login {
 
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    Gson graphBuilder;
+    
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public String gt() {
@@ -39,12 +47,11 @@ public class Login {
       String password = json.get("password").getAsString();
       JsonObject responseJson = new JsonObject();
       Role role;
-
       if ((role = authenticate(username, password)) != null) {
         String token = createToken(username, role);
         responseJson.addProperty("username", username);
         responseJson.addProperty("token", token);
-        return Response.ok(new Gson().toJson(responseJson)).build();
+        return Response.ok(gson.toJson(responseJson)).build();
       }
     } catch (Exception e) {
       if (e instanceof JOSEException) {
@@ -61,7 +68,7 @@ public class Login {
 
   private String createToken(String subject, Role role) throws JOSEException {
     StringBuilder res = new StringBuilder();
-    res.append(role);
+    res.append(role.getRoleName());
     /*
     for (String string : roles) {
       res.append(string);
@@ -69,6 +76,7 @@ public class Login {
     }
     */
     String rolesAsString = res.toString(); //res.length() > 0 ? res.substring(0, res.length() - 1) : "";
+    System.out.println(rolesAsString);
     String issuer = "semester3demo-cphbusiness.dk-computerScience";
 
     
@@ -100,4 +108,5 @@ public class Login {
     signedJWT.sign(signer);
     return signedJWT.serialize();
   }
+
 }

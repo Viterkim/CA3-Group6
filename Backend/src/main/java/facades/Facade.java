@@ -5,7 +5,6 @@ import entity.User;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import security.IUser;
 
 public class Facade {
  
@@ -35,8 +34,16 @@ public class Facade {
         return bookFacade.getBooks(user);
     }
     
+    public List<Book> getAllBooks() {
+        return bookFacade.getAllBooks();
+    }
+    
     public User getUserByName(String name) {
         return userFacade.getUserByUserName(name);
+    }
+    
+    public List<User> getAllUsers() {
+        return userFacade.getAllUsers();
     }
     
     public static Facade getFacade() {

@@ -55,7 +55,7 @@ const Login = observer(class Login extends Component {
           </div>
         </div>
         <div className="parallax">
-          <img id="paralaxImageOne" src="/background_frontpage.jpg"/>
+          <img id="paralaxImageOne" src="/background_frontpage.jpg" alt="Error"/>
         </div>
         <p>
           <br/>

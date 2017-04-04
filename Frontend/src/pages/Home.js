@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import auth from '../authorization/auth'
 import { observer } from "mobx-react";
 import { Link } from 'react-router';
 
@@ -59,7 +58,7 @@ const Home = observer(class Home extends Component {
             </div>
           </div>
           <div className="parallax">
-            <img id="paralaxImageOne" src="/background_frontpage.jpg"/>
+            <img id="paralaxImageOne" src="/background_frontpage.jpg" alt="Error"/>
           </div>
         </div>
       </div>

@@ -42,7 +42,7 @@ export default class About extends Component{
           <br/>
         </p>
         <div className="parallax">
-          <img id="paralaxImageOne" src="/background_frontpage.jpg"/>
+          <img id="paralaxImageOne" src="/background_frontpage.jpg" alt="Error"/>
         </div>
       </div>
     )

@@ -44,6 +44,11 @@ public class BookFacade
         return q.getResultList();
     }
     
+    public List<Book> getAllBooks() {
+        Query q = getEntityManager().createQuery("SELECT b FROM BOOK b");
+        return q.getResultList();
+    }
+    
     public void persist(Object... objs) {
         getEntityManager().getTransaction().begin();
         for (Object o : objs) {

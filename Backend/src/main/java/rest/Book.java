@@ -16,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -27,18 +28,13 @@ public class Book {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     Gson graphBuilder;
     
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getSomething(){
-        return "{\"message\" : \"Hello User from Server (Accesible by only authenticated USERS)\"}"; 
-    }
-
     @POST
-    //@Path("/create/{title}")
+    @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createBookFromJSON(String content) {
         entity.User user = facade.getUserByName("user");   //TODO: Get username from logged in session, store into username
+        
         entity.Book b = (entity.Book) gson.fromJson(content, entity.Book.class);
         b.setUser(user);
         entity.Book created = facade.createBook(b);
@@ -53,13 +49,16 @@ public class Book {
     }
     
     @GET
-    @Path("/user/{userName}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPeopleFromZipCode(@PathParam("userName") String userName){
+    @Path("")
+    @Produces(MediaType.APPLICATION_JSON)   //   seedMaven/api/book?username=XYZ
+    public Response getBooksFromUsername(@QueryParam("username") String username){
+        List<entity.Book> books = null;
         
-        List<entity.Book> books = facade.getBooks(facade.getUserByName(userName));
-        //String stuff = "Found user: " + user.getUserName() + ", pass: " + user.getPassword() + ", role: " + user.getRole();
-        
+        if (username.equals("") || username.isEmpty()) {
+            books = facade.getAllBooks();
+        } else {
+            books = facade.getBooks(facade.getUserByName(username));
+        }
         String response = getGraphBuilder().toJson(books, List.class);
         response = getFormattedJSON(response);
         

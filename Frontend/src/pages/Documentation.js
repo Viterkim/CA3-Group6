@@ -2,7 +2,6 @@
  * Created by scheldejonas on 04/04/2017.
  */
 import React, {Component} from "react";
-import { Row, Col } from 'react-materialize';
 
 export default class Documentation extends Component{
   render() {
@@ -27,7 +26,7 @@ export default class Documentation extends Component{
           </div>
         </div>
         <div className="parallax">
-          <img id="paralaxImageOne" src="/background_frontpage.jpg"/>
+          <img id="paralaxImageOne" src="/background_frontpage.jpg" alt="Error"/>
         </div>
         <p>
           <br/>

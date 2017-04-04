@@ -26,15 +26,25 @@ class AuthenticationHandler {
 
   @action
   initDataFromToken = () => {
-    console.log("Initializing Data From Token");
+    //console.log("Initializing Data From Token");
     if (!localStorage.token) {
       return;
     }
     this.token = localStorage.token;
     var decoded = jwtDecode(this.token);
+    //console.log(decoded);
     this.userName = decoded.username;
+    
     this.isAdmin = false;
     this.isUser = false;
+    var role = decoded.roles;
+    if (role === "Admin") {
+        this.isAdmin = true;
+    } else if (role === "User") {
+        this.isUser = true;
+    }
+    //console.log(role);
+    /*
     decoded.roles.forEach(function (role) {
       if (role === "Admin") {
         this.isAdmin = true;
@@ -43,6 +53,7 @@ class AuthenticationHandler {
         this.isUser = true;
       }
     }, this);
+    */
   }
 
   @action
@@ -53,7 +64,7 @@ class AuthenticationHandler {
 
   @action
   logout = () => {
-    console.log("Logout");
+    //console.log("Logout");
     delete localStorage.token;
     this.token = null;
     this.userName = "";
@@ -66,7 +77,7 @@ class AuthenticationHandler {
   login = (username, password, cb) => {
     var self = this; //Required because of exception handling below, which looses this
     this.setFailedLogin(false, "");
-    console.log("Login: " + self.token)
+    //console.log("Login: " + self.token)
     cb = arguments[arguments.length - 1]
     if (this.token != null) {
       if (cb) cb(true)
