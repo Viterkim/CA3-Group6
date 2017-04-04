@@ -1,5 +1,6 @@
 package facades;
 
+import entity.Role;
 import security.IUserFacade;
 import entity.User;
 import java.util.List;
@@ -33,7 +34,7 @@ public class UserFacade implements IUserFacade {
     Return the Roles if users could be authenticated, otherwise null
      */
     @Override
-    public String authenticateUser(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException{
+    public Role authenticateUser(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException{
         User user = getUserByUserName(userName);
         return user != null && PasswordStorage.verifyPassword(password, user.getPassword()) ? user.getRole() : null;  
     }

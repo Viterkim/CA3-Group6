@@ -1,5 +1,6 @@
 package security;
 
+import entity.Role;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +11,10 @@ REF: http://scytl.github.io/restguide/#_security_2
 public class UserPrincipal implements Principal {
  private String username; 
 
-  private String role = null;
+  private Role role;
 
   
-  public UserPrincipal(String username, String role) {
+  public UserPrincipal(String username, Role role) {
     super();
     this.username = username;
     this.role = role;
@@ -24,7 +25,7 @@ public class UserPrincipal implements Principal {
     return username;
   }
 
-  public boolean isUserInRole(String role) { 
-    return this.role.equals(role);
+  public boolean isUserRole(String roleName) {
+    return this.role.getRoleName().equals(roleName);
   }
 }

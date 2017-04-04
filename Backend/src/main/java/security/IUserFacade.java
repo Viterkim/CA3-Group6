@@ -5,6 +5,9 @@
  */
 package security;
 
+import entity.Role;
+import java.util.List;
+
 /**
  *
  * @author lam
@@ -14,7 +17,7 @@ public interface IUserFacade {
     /*
     Return the Roles if users could be authenticated, otherwise null
      */
-   String authenticateUser(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException;
+    Role authenticateUser(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException;
 
     IUser getUserByUserName(String id);
     

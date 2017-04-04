@@ -11,35 +11,26 @@ import javax.persistence.ManyToOne;
 
 @Entity(name = "BOOK")
 public class Book{
+    
     public Book(){
     }
 
-    public Book(String title, String info, User user)
-    {
+    public Book(String title, String info, User user) {
         this.title = title;
         this.info = info;
-        //this.user = user;
-    }
-    
-    public Book(String title, String info, String username)
-    {
-        this.title = title;
-        this.info = info;
-        this.username = username;
+        this.user = user;
     }
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     
-    private String title, info, username;
+    private String title, info;
     
-    /*
     @ManyToOne
-    @JoinColumn(name="CREATED_BY", referencedColumnName = "Creator")
+    @JoinColumn(name="CREATED_BY")
     private User user;
-    */
-    
+
     public int getId()
     {
         return id;
@@ -70,17 +61,6 @@ public class Book{
         this.info = info;
     }
 
-    public String getUsername() {
-        return username;
-    }
-    
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    
-    
-    /*
     public User getUser()
     {
         return user;
@@ -90,6 +70,5 @@ public class Book{
     {
         this.user = user;
     }
-    */
-
+    
 }

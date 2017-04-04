@@ -38,9 +38,9 @@ public class BookFacade
         return getEntityManager().find(Book.class, title);
     }
     
-    public List<Book> getBooks(String username) {
-        Query q = getEntityManager().createQuery("SELECT b FROM BOOK b WHERE b.username = :username");
-        q.setParameter("username", username);
+    public List<Book> getBooks(User user) {
+        Query q = getEntityManager().createQuery("SELECT b FROM BOOK b WHERE b.user = :username");
+        q.setParameter("username", user);
         return q.getResultList();
     }
     

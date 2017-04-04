@@ -31,8 +31,8 @@ public class Facade {
         return bookFacade.getBook(title);
     }
     
-    public List<Book> getBooks(String username) {
-        return bookFacade.getBooks(username);
+    public List<Book> getBooks(User user) {
+        return bookFacade.getBooks(user);
     }
     
     public User getUserByName(String name) {

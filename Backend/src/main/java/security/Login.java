@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.*;
+import entity.Role;
 import facades.UserFacade;
 import java.security.SecureRandom;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class Login {
       String username = json.get("username").getAsString();
       String password = json.get("password").getAsString();
       JsonObject responseJson = new JsonObject();
-      String role;
+      Role role;
 
       if ((role = authenticate(username, password)) != null) {
         String token = createToken(username, role);
@@ -53,12 +54,12 @@ public class Login {
     throw new NotAuthorizedException("Invalid username or password. Please try again", Response.Status.UNAUTHORIZED);
   }
 
-  private String authenticate(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
+  private Role authenticate(String userName, String password) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
     IUserFacade facade = UserFacadeFactory.getInstance();
     return facade.authenticateUser(userName, password);
   }
 
-  private String createToken(String subject, String role) throws JOSEException {
+  private String createToken(String subject, Role role) throws JOSEException {
     StringBuilder res = new StringBuilder();
     res.append(role);
     /*
@@ -90,7 +91,7 @@ public class Login {
     JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
             .subject(subject)
             .claim("username", subject)
-            .claim("roles", role)
+            .claim("roles", rolesAsString)
             .claim("issuer", issuer)
             .issueTime(date)
             .expirationTime(new Date(date.getTime() + 1000 * 60 * 60))

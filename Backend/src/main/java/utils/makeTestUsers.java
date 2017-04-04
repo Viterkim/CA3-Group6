@@ -1,6 +1,7 @@
 package utils;
 
 import entity.Book;
+import entity.Role;
 import entity.User;
 import facades.UserFacade;
 import java.util.logging.Level;
@@ -18,8 +19,8 @@ public class makeTestUsers {
       System.out.println("Creating TEST Users");
       if (em.find(User.class, "user") == null) {
         em.getTransaction().begin();
-        String userRole = new String("User");
-        String adminRole = new String("Admin");
+        Role userRole = new Role("User");
+        Role adminRole = new Role("Admin");
         User user = new User("user", "test");
         user.setRole(userRole);
         User admin = new User("admin", "test");
@@ -33,7 +34,7 @@ public class makeTestUsers {
         em.persist(admin);
         em.persist(both);
         //BookTest
-        Book b1 = new Book("Eventyr", "Det er fandeme en god bog", user.getUserName());
+        Book b1 = new Book("Eventyr", "Det er fandeme en god bog", user);
         em.persist(b1);
         em.getTransaction().commit();
         System.out.println("Created TEST Users");

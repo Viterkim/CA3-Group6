@@ -4,6 +4,7 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.SignedJWT;
+import entity.Role;
 import entity.User;
 import facades.UserFacade;
 import java.io.IOException;
@@ -59,10 +60,10 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
         }
 
         request.setSecurityContext(new SecurityContext() {
-
+            
           @Override
-          public boolean isUserInRole(String role) {
-            return user.isUserInRole(role);
+          public boolean isUserInRole(String roleName) {
+            return user.isUserRole(roleName);
           }
 
           @Override
@@ -79,6 +80,7 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
           public String getAuthenticationScheme() {
             return SecurityContext.BASIC_AUTH;
           }
+
         });
 
       } catch (ParseException | JOSEException e) {
