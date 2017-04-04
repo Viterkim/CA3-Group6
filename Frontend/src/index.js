@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
-import { hashHistory, Router, Route, IndexRoute } from 'react-router'
+import { browserHistory, Router, Route, IndexRoute } from 'react-router'
 import App from './pages/App';
 import Home from './pages/Home';
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
-import About from "./pages/About";
+import Documentation from './pages/Documentation';
+import Company from  './pages/Company';
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
-import Dashboard from "./pages/Dashboard"
+import Books from './pages/Books';
 import auth from "./authorization/auth";
+import Dashboard from './pages/Dashboard';
 
 
 function requireAuth(nextState, replace) {
@@ -23,12 +25,14 @@ function requireAuth(nextState, replace) {
 }
 
 ReactDOM.render((
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Home}/>
+  <Router history={browserHistory}>
+    <Route component={App}>
+      <Route path="/" component={Home}/>
+      <Route path="documentation" component={Documentation} />
+      <Route path="company" component={Company} />
+      <Route path="books" component={Books} />
       <Route path="login" component={Login} />
       <Route path="logout" component={Logout} />
-      <Route path="about" component={About} />
       <Route path="user" component={UserPage} />
       <Route path="admin" component={AdminPage} />
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />

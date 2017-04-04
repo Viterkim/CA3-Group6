@@ -1,28 +1,71 @@
 import React, { Component } from 'react'
 import auth from '../authorization/auth'
 import { observer } from "mobx-react";
+import { Link } from 'react-router';
 
 const Home = observer(class Home extends Component {
 
   render() {
     return (
       <div>
-        <h3>Welcome to this demo project, meant as a frontend-seed for third semester at:<br />
-          <a href="https://www.cphbusiness.dk/english/study-programmes/ap-degree/computer-science/">cphbusiness.dk - ComputerScience</a>
-        </h3>
-        <h4>This project assumes it's' corresponding backend is running</h4>
-        <h3>You are currently <b> {!auth.loggedIn && 'not'} logged in.</b></h3>
-        <p>Try and navigate (without being logged-in) to the menus:</p>
-        <ul>
-          <li>Page for Users (try to login with: username= <b>user</b>, password = <b>test</b>)</li>
-          <li>Page form Admins (try to login with: username= <b>admin</b>, password = <b>test</b>)</li>
-        </ul>
-        <br/>
-        <p>Log-in with the credintials given above to see "authentication in action"</p>
-    </div>
+        <div className="parallax-container">
+          <div className="row">
+            <div className="col s12">
+              <p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              </p>
+              <h1 className="header center orange-text text-lighten-2">Welcome to our project</h1>
+              <div className="row center">
+                <h5 className="header col s12 light">A modern single page application</h5>
+              </div>
+              <div className="row center">
+                <Link to='/books' id="download-button" className="btn-large waves-effect waves-light orange lighten-1">Books</Link>
+              </div>
+              <p>
+                <br/>
+                <br/>
+                <br/>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="container">
+          <div className="section background_white">
+            <div className="row">
+              <div className="col s12 m4">
+                <div className="icon-block">
+                  <h2 className="center brown-text"><i className="material-icons">flash_on</i></h2>
+                  <h5 className="center">React</h5>
+                  <p className="light">We did most of the heavy lifting in react for us to show this single page application can do we tell it to do.</p>
+                </div>
+              </div>
+              <div className="col s12 m4">
+                <div className="icon-block">
+                  <h2 className="center brown-text"><i className="material-icons">group</i></h2>
+                  <h5 className="center">Group 6</h5>
+                  <p className="light">By using the communication together pair by pair. We problem solved the setups for each task one by one over teamspeak. Also we were using Teamviewer to teach and discuss over for collaboration.</p>
+                </div>
+              </div>
+              <div className="col s12 m4">
+                <div className="icon-block">
+                  <h2 className="center brown-text"><i className="material-icons">settings</i></h2>
+                  <h5 className="center">Coding</h5>
+                  <p className="light">The setup used for this single page application is React and a lot of Boilerplate code with this. On the backend we have a JAX-RS in java setup on a tomcat server with a MySQL handlingen all the data requests.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="parallax">
+            <img id="paralaxImageOne" src="/background_frontpage.jpg"/>
+          </div>
+        </div>
+      </div>
     )
   }
-})
+});
 
 export default Home;
 

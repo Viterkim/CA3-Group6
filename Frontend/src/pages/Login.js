@@ -33,16 +33,39 @@ const Login = observer(class Login extends Component {
   render() {
     return (
       <div className="container">
-        <form className="form-signin" onSubmit={this.handleSubmit}>
-          <h2 className="form-signin-heading">Please sign in</h2>
-          <label htmlFor="inputEmail" className="sr-only">Email address</label>
-          <input type="text" ref="username" className="form-control" placeholder="User Name" required autoFocus />
-          <label htmlFor="inputPassword" className="sr-only">Password</label>
-          <input type="password" ref="pass" className="form-control" placeholder="Password" required />
-          <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p>
           <br/>
-          {auth.failedLogin && (<p style={{color: "darkred"}}>{auth.errorMessage}</p> )}
-        </form>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        </p>
+        <div className="row">
+          <div className="col s12 m6 offset-m3">
+            <h2 className="form-signin-heading center">Sign in</h2>
+            <form className="form-signin" onSubmit={this.handleSubmit}>
+              <label htmlFor="inputEmail" className="sr-only">Email address</label>
+              <input type="text" ref="username" className="form-control" placeholder="User Name" required autoFocus />
+              <label htmlFor="inputPassword" className="sr-only">Password</label>
+              <input type="password" ref="pass" className="form-control" placeholder="Password" required />
+              <button className="btn btn-lg btn-primary btn-block orange lighten-2" type="submit">Sign in</button>
+              <br/>
+              {auth.failedLogin && (<p className="error_message center">{auth.errorMessage}</p> )}
+            </form>
+          </div>
+        </div>
+        <div className="parallax">
+          <img id="paralaxImageOne" src="/background_frontpage.jpg"/>
+        </div>
+        <p>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        </p>
       </div>
     )
   }
