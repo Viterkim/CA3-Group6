@@ -31,15 +31,10 @@ class dataHandlerBooks {
 
   @action
   getData = () => {
-
-    const config = {
-      headers: {
-        'Authorisation': `Bearer ${localStorage.token}`,
-        "Content-type": "Application/json",
-      }
-    };
-
-    axios.get('http://localhost:8084/seedMaven/api/book/all', config)
+      
+    const options = fetchHelper.makeOptions("GET", true);
+    
+    axios.get('http://localhost:8084/seedMaven/api/book/all', options)
       .then(function (response) {
           this.setBookData(response.data);
         }.bind(this))

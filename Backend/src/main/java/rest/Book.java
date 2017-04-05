@@ -165,6 +165,7 @@ public class Book {
         //JsonArray arr = gson.fromJson(json, JsonArray.class);
         String fullJSON = ""; //+ gson.toJson(arr.size()) + System.lineSeparator();
         //int i = 1;
+        JsonArray newArr = new JsonArray();
         for (int i = 1; i <= arr.size(); i++) {
             JsonElement ele = arr.get(i - 1);
             JsonObject o = ele.getAsJsonObject();
@@ -178,9 +179,6 @@ public class Book {
             JsonElement userEle2 = ele3.getAsJsonObject();
             JsonObject userObj2 = userEle2.getAsJsonObject();
             JsonElement usernameEle = userObj2.get("username");
-            
-            
-            
 
             userObj.remove("user");
             userObj.add("user", usernameEle);
@@ -189,9 +187,10 @@ public class Book {
                 throw new NotAuthorizedException("User element is null!!");
             }
             
-            fullJSON += gson.toJson(userObj.getAsJsonObject()) + System.lineSeparator();
+            //fullJSON += gson.toJson(userObj.getAsJsonObject()) + System.lineSeparator();
+            newArr.add(userObj);
         }
-        return fullJSON;
+        return gson.toJson(newArr);
     }
     
     private String formatSingleJSON(String singleJSON) {

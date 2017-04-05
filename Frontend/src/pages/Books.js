@@ -6,11 +6,11 @@ import tableData from "../stores/dataHandlerBooks";
 class Books extends Component {
 
   componentWillMount() {
-    tableData.getDataNoAuth();
+    tableData.getData();
   }
 
   renderTable() {
-    console.log()
+    console.log(tableData.books);
 
     let bookTableContent = tableData.books.map(function (book) {
       return (
