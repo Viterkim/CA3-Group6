@@ -2,7 +2,6 @@ import { observable, action } from "mobx";
 import fetchHelper from "./fetchHelpers"
 const URL = require("../../package.json").serverURL;
 
-
 class FootBallStore {
   @observable messageFromServer = [];
   @observable errorMessage = "";

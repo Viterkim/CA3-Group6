@@ -6,18 +6,21 @@ import tableData from "../stores/dataHandlerBooks";
 class Books extends Component {
 
   componentWillMount() {
-    tableData.getData();
+    tableData.getDataNoAuth();
   }
 
   renderTable() {
+    console.log()
+
     let bookTableContent = tableData.books.map(function (book) {
       return (
         <tr key={book.id}>
           <td className="padding_left_right_normal">{book.title}</td>
           <td className="padding_left_right_normal">{book.info}</td>
         </tr>
-      )
+      );
     });
+
     return (
       <table className="background_white striped highlight padding_left_right_normal">
         <thead>

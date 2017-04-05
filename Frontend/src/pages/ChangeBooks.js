@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import {observer} from "mobx-react";
 import tableData from "../stores/dataHandlerBooks";
 import auth from '../authorization/auth';
+import EditBook from '../components/EditBook';
 
 class ChangeBooks extends Component {
 
@@ -14,17 +15,20 @@ class ChangeBooks extends Component {
 
   deleteBook(id) {
     const bookÍd = id;
+    console.log('I tried to delete book id ' + bookÍd);
   }
 
   renderTable() {
 
     const bookTableContent = tableData.books.map(function (book) {
+      const modalId = 'modal' + book.id;
       return (
         <tr key={book.id}>
           <td className="padding_left_right_normal">{book.title}</td>
           <td className="padding_left_right_normal">{book.info}</td>
           <td>
-            <a href="modal1" class="waves-effect orange lighten-1 waves-light btn" id={book.id} title={book.title} info={book.info} user={auth.username}>Edit</a>
+            <a href={modalId} class="waves-effect orange lighten-1 waves-light btn">Edit</a>
+            <EditBook modalId={modalId} id={book.id} title={book.title} info={book.info} user={auth.username} />
           </td>
           <td>
             <a onClick={this.deleteBook(book.id)} href="modal1" class="waves-effect red darken-1 waves-light btn">Delete</a>

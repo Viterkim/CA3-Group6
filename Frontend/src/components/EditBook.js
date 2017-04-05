@@ -18,7 +18,7 @@ class EditBook extends Component{
     return (
     <div>
 
-      <div id="modal1" className="modal modal-fixed-footer">
+      <div id={this.props.modalId} className="modal modal-fixed-footer">
       <div className="modal-content">
 
         <h4>Title</h4>
