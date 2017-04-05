@@ -102,7 +102,7 @@ public class Login {
             .claim("roles", rolesAsString)
             .claim("issuer", issuer)
             .issueTime(date)
-            .expirationTime(new Date(date.getTime() + 1000 * 60 * 60))
+            .expirationTime(new Date(date.getTime() + (1000 * 60 * 60)))
             .build();
     SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
     signedJWT.sign(signer);

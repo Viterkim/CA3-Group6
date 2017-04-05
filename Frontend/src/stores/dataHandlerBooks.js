@@ -1,46 +1,24 @@
 import {observable, action} from "mobx";
-import React, {Component} from "react"
+import {Component} from "react"
 import axios from "axios"
+import fetchHelper from "./fetchHelpers"
 
-class dataHandlerBooks extends Component {
+class DataHandlerBooks extends Component {
+    
     @observable books = [];
 
-    constructor() {
-        super();
-        this.getData();
-    }
-
-    render() {
-
-        const bookTableContent = books.map(function(index, book) {
-            return <tr key={index}>
-                <td>{book.id}</td>
-                <td>{book.title}</td>
-                <td>{book.info}</td>
-            </tr>
-        });
-
-        return (
-            <table>
-                <thead>
-                    <tr>
-                        <th>Book Id</th>
-                        <th>Book Title</th>
-                        <th>Book Info</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {bookTableContent}
-                </tbody>
-            </table>
-        );
-    }
-
     @action
-    getData() {
-        axios.get('/users').then(function(response) {
-            this.books = response.json;
-        }).catch(function(error) {
+    setBookData(data) {
+        this.books = data;
+    }
+    
+    @action
+    getData = () => {
+        //console.log("Getting all books");
+        const options = fetchHelper.makeOptions("GET", true);
+        axios.get('http://localhost:8084/seedMaven/api/book/all', options).then(function(response) {
+            this.setBookData(response.data);
+        }.bind(this)).catch(function(error) {
             console.log(error);
         });
     }
@@ -57,6 +35,6 @@ class dataHandlerBooks extends Component {
     }
 }
 
-var dataBooks = new dataHandlerBooks();
+let tableData = new DataHandlerBooks();
 
-export default data;
+export default tableData;

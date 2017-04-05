@@ -30,12 +30,24 @@ public class Facade {
         return bookFacade.getBook(title);
     }
     
+    public Book getBook(int id) {
+        return bookFacade.getBook(id);
+    }
+    
     public List<Book> getBooks(User user) {
         return bookFacade.getBooks(user);
     }
     
     public List<Book> getAllBooks() {
         return bookFacade.getAllBooks();
+    }
+    
+    public Book updateBook(int id, String title, String info) {
+        return bookFacade.updateBook(id, title, info);
+    }
+    
+    public Book updateBook(Book b) {
+        return bookFacade.updateBook(b.getId(), b.getTitle(), b.getInfo());
     }
     
     public User getUserByName(String name) {

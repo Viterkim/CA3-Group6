@@ -37,6 +37,10 @@ public class UserFacade implements IUserFacade {
         return q.getResultList();
     }
     
+    public void updatePassword(String passwordHash) {
+        
+    }
+    
     /*
     Return the Roles if users could be authenticated, otherwise null
      */

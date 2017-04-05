@@ -72,17 +72,24 @@ public class User {
     }
     
     private String getFormattedJSON(String fullJSON) {
-        JsonArray jsonArray = getGraphBuilder().fromJson(fullJSON, JsonElement.class).getAsJsonArray();
-        ArrayList<JsonObject> objects = new ArrayList<>();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            objects.add(jsonArray.get(i).getAsJsonObject());
+        try {
+            JsonArray jsonArray = getGraphBuilder().fromJson(fullJSON, JsonElement.class).getAsJsonArray();
+            ArrayList<JsonObject> objects = new ArrayList<>();
+            for (int i = 0; i < jsonArray.size(); i++) {
+                objects.add(jsonArray.get(i).getAsJsonObject());
+            }
+            JsonArray jsonArrayNew = new JsonArray();
+            for (JsonObject o : objects) {
+                JsonElement ele = o.get("0x1");
+                jsonArrayNew.add(ele);
+            }
+            return gson.toJson(jsonArrayNew);
+        } catch (Exception e) {
+            if (e.getMessage().toLowerCase().contains("json arra")) {
+                return formatSingleJSON(fullJSON);
+            }
         }
-        JsonArray jsonArrayNew = new JsonArray();
-        for (JsonObject o : objects) {
-            JsonElement ele = o.get("0x1");
-            jsonArrayNew.add(ele);
-        }
-        return gson.toJson(jsonArrayNew);
+        return null;
     }
     
 }

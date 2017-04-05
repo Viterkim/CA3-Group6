@@ -56,7 +56,6 @@ public class RolesAllowedFilter implements ContainerRequestFilter {
   }
 
   private boolean assertRole(ContainerRequestContext requestContext, RolesAllowed ra) {
-
     if (ra != null) {
       String[] roles = ra.value();
       for (String role : roles) {

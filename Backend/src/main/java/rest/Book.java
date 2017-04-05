@@ -20,8 +20,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import httpErrors.*;
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ProcessingException;
+
 @Path("book")
-//@RolesAllowed("User")
+//@RolesAllowed("Admin")
 public class Book {
 
     Facade facade = Facade.getFacade();
@@ -32,6 +37,7 @@ public class Book {
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    //@RolesAllowed({"User", "Admin", "user", "admin"})
     public Response createBookFromJSON(String content) {
         entity.User user = facade.getUserByName("user");   //TODO: Get username from logged in session, store into username
         
@@ -49,7 +55,24 @@ public class Book {
     }
     
     @GET
+    @Path("/all")
+    //@RolesAllowed({"User", "Admin"})
+    @Produces(MediaType.APPLICATION_JSON)   //   seedMaven/api/book?username=XYZ
+    public Response getBooksFromAll(){
+        List<entity.Book> books = facade.getAllBooks();
+
+        String response = getGraphBuilder().toJson(books, List.class);
+        response = getFormattedJSON(response);
+        
+        return Response
+                .status(Response.Status.OK)
+                .entity(response)
+                .build();
+    }
+    
+    @GET
     @Path("")
+    @RolesAllowed({"User", "Admin"})
     @Produces(MediaType.APPLICATION_JSON)   //   seedMaven/api/book?username=XYZ
     public Response getBooksFromUsername(@QueryParam("username") String username){
         List<entity.Book> books = null;
@@ -57,9 +80,33 @@ public class Book {
         if (username.equals("") || username.isEmpty()) {
             books = facade.getAllBooks();
         } else {
+            //Check if username == user logged in?
             books = facade.getBooks(facade.getUserByName(username));
         }
         String response = getGraphBuilder().toJson(books, List.class);
+        response = getFormattedJSON(response);
+        
+        return Response
+                .status(Response.Status.OK)
+                .entity(response)
+                .build();
+    }
+    
+    @GET
+    @Path("/update")
+    @RolesAllowed({"User", "Admin"})
+    @Produces(MediaType.APPLICATION_JSON)   //   seedMaven/api/book?username=XYZ
+    public Response updateBooks(@QueryParam("bookID") String id, @QueryParam("bookTitle") String title, @QueryParam("bookInfo") String info){
+        entity.Book book = null;
+        try {
+            book = facade.getBook(Integer.parseInt(id));
+        } catch (Exception e) {
+            throw new NotAuthorizedException("Non numeric value input", Response.Status.CONFLICT);
+        }
+        book.setTitle(title);
+        book.setInfo(info);
+        book = facade.updateBook(book);
+        String response = getGraphBuilder().toJson(book, entity.Book.class);
         response = getFormattedJSON(response);
         
         return Response
@@ -90,17 +137,24 @@ public class Book {
     }
     
     private String getFormattedJSON(String fullJSON) {
-        JsonArray jsonArray = getGraphBuilder().fromJson(fullJSON, JsonElement.class).getAsJsonArray();
-        ArrayList<JsonObject> objects = new ArrayList<>();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            objects.add(jsonArray.get(i).getAsJsonObject());
+        try {
+            JsonArray jsonArray = getGraphBuilder().fromJson(fullJSON, JsonElement.class).getAsJsonArray();
+            ArrayList<JsonObject> objects = new ArrayList<>();
+            for (int i = 0; i < jsonArray.size(); i++) {
+                objects.add(jsonArray.get(i).getAsJsonObject());
+            }
+            JsonArray jsonArrayNew = new JsonArray();
+            for (JsonObject o : objects) {
+                JsonElement ele = o.get("0x1");
+                jsonArrayNew.add(ele);
+            }
+            return gson.toJson(jsonArrayNew);
+        } catch (Exception e) {
+            if (e.getMessage().toLowerCase().contains("json arra")) {
+                return formatSingleJSON(fullJSON);
+            }
         }
-        JsonArray jsonArrayNew = new JsonArray();
-        for (JsonObject o : objects) {
-            JsonElement ele = o.get("0x1");
-            jsonArrayNew.add(ele);
-        }
-        return gson.toJson(jsonArrayNew);
+        return null;
     }
     
 }
