@@ -10,6 +10,7 @@ class DataHandlerBooks extends Component {
     @action
     setBookData(data) {
         this.books = data;
+        this.setData(data);
     }
     
     @action
