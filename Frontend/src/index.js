@@ -13,6 +13,7 @@ import AdminPage from "./pages/AdminPage";
 import Books from './pages/Books';
 import auth from "./authorization/auth";
 import Dashboard from './pages/Dashboard';
+import ChangeBooks from './pages/ChangeBooks';
 
 
 function requireAuth(nextState, replace) {
@@ -31,6 +32,7 @@ ReactDOM.render((
       <Route path="documentation" component={Documentation} />
       <Route path="company" component={Company} />
       <Route path="books" component={Books} />
+      <Route path="change-books" component={ChangeBooks} />
       <Route path="login" component={Login} />
       <Route path="logout" component={Logout} />
       <Route path="user" component={UserPage} />

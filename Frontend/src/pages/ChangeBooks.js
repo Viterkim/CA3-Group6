@@ -1,39 +1,58 @@
-import React, {Component} from "react";
+/**
+ * Created by scheldejonas on 05/04/2017.
+ */
+import React, { Component } from 'react';
 import {observer} from "mobx-react";
 import tableData from "../stores/dataHandlerBooks";
+import auth from '../authorization/auth';
 
-@observer
-class Books extends Component {
+class ChangeBooks extends Component {
 
   componentWillMount() {
     tableData.getData();
   }
 
+  deleteBook(id) {
+    const bookÍd = id;
+  }
+
   renderTable() {
-    let bookTableContent = tableData.books.map(function (book) {
+
+    const bookTableContent = tableData.books.map(function (book) {
       return (
         <tr key={book.id}>
           <td className="padding_left_right_normal">{book.title}</td>
           <td className="padding_left_right_normal">{book.info}</td>
+          <td>
+            <a href="modal1" class="waves-effect orange lighten-1 waves-light btn" id={book.id} title={book.title} info={book.info} user={auth.username}>Edit</a>
+          </td>
+          <td>
+            <a onClick={this.deleteBook(book.id)} href="modal1" class="waves-effect red darken-1 waves-light btn">Delete</a>
+          </td>
         </tr>
       )
     });
+
     return (
       <table className="background_white striped highlight padding_left_right_normal">
         <thead>
-          <tr>
-            <th className="padding_left_right_normal">Book Title</th>
-            <th className="padding_left_right_normal">Book Info</th>
-          </tr>
+        <tr>
+          <th className="padding_left_right_normal">Book Title</th>
+          <th className="padding_left_right_normal">Book Info</th>
+          <th className="padding_left_right_normal">Edit</th>
+          <th className="padding_left_right_normal">Delete</th>
+        </tr>
         </thead>
         <tbody>
-          {bookTableContent}
+        { bookTableContent }
         </tbody>
       </table>
     );
+
   }
 
   render() {
+
     return (
       <div className="container">
         <div className="section background_white">
@@ -50,8 +69,8 @@ class Books extends Component {
         </div>
         {this.renderTable()}
       </div>
-    )
+    );
   }
 }
 
-export default Books;
+export default ChangeBooks;
