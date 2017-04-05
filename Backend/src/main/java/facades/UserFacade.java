@@ -37,8 +37,8 @@ public class UserFacade implements IUserFacade {
         return q.getResultList();
     }
     
-    public void updatePassword(String passwordHash) {
-        
+    public void updateUser(User user) {
+        persist(user);
     }
     
     /*
@@ -50,4 +50,20 @@ public class UserFacade implements IUserFacade {
         return user != null && PasswordStorage.verifyPassword(password, user.getPassword()) ? user.getRole() : null;  
     }
 
+    private void persist(Object... objs) {
+        getEntityManager().getTransaction().begin();
+        for (Object o : objs) {
+            getEntityManager().persist(o);
+        }
+        getEntityManager().getTransaction().commit();
+    }
+    
+    private void delete(Object... objs) {
+        getEntityManager().getTransaction().begin();
+        for (Object o : objs) {
+            getEntityManager().remove(o);
+        }
+        getEntityManager().getTransaction().commit();
+    }
+    
 }

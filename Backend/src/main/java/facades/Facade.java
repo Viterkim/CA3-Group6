@@ -50,6 +50,10 @@ public class Facade {
         return bookFacade.updateBook(b.getId(), b.getTitle(), b.getInfo());
     }
     
+    public Book deleteBook(int id) {
+        return bookFacade.deleteBook(id);
+    }
+    
     public User getUserByName(String name) {
         return userFacade.getUserByUserName(name);
     }
@@ -58,6 +62,16 @@ public class Facade {
         return userFacade.getAllUsers();
     }
     
+    public void updateUser(User user) {
+        userFacade.updateUser(user);
+    }
+    
+    /*
+    public Role getRole(String name) {
+        
+    }
+    */    
+
     public static Facade getFacade() {
         return facade;
     }

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 import security.IUser;
 import security.PasswordStorage;
 
@@ -27,6 +28,7 @@ public class User implements IUser, Serializable{
     private Role role;
 
     @OneToMany(mappedBy="user")
+    @CascadeOnDelete
     private List<Book> books = new ArrayList<>();
 
     public User() throws PasswordStorage.CannotPerformOperationException {

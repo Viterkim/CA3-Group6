@@ -50,6 +50,28 @@ public class User {
                 .build();
     }
   
+    @GET
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)   //     seedMaven/api/user?username=XYZ
+    public Response updateUser(@QueryParam("username") String username, @QueryParam("password") String password, @QueryParam("rolename") String rolename) {
+        List<entity.User> users = null;
+        
+        if (username.equals("") || username.isEmpty()) {
+            users = facade.getAllUsers();
+        } else {
+            users = new ArrayList<>();
+            users.add(facade.getUserByName(username));
+        }
+        
+        String response = getGraphBuilder().toJson(users, List.class);
+        response = getFormattedJSON(response);
+        
+        return Response
+                .status(Response.Status.OK)
+                .entity(response)
+                .build();
+    }
+  
     private Gson getGraphBuilder() {
         if (graphBuilder == null) {
             GsonBuilder builder = new GsonBuilder();
