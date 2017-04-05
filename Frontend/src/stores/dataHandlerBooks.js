@@ -23,10 +23,11 @@ class dataHandlerBooks {
     axios.get('http://localhost:8084/seedMaven/api/book/all', configNoAuth)
       .then(function (response) {
         this.setBookData(response.data);
-      }.bind(this)).catch(function (error) {
+      }.bind(this))
+      .catch(function (error) {
         console.log(error);
       });
-  }
+  };
 
   @action
   getData = () => {
