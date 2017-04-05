@@ -61,8 +61,10 @@ public class BookFacade
         return book;
     }
     
-    public void deleteBook(int id) {
-        delete(getEntityManager().find(Book.class, id));
+    public Book deleteBook(int id) {
+        Book b = getEntityManager().find(Book.class, id);
+        delete(b);
+        return b;
     }
     
     private void persist(Object... objs) {
