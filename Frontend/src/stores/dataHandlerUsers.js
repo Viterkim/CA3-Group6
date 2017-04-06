@@ -17,7 +17,7 @@ class dataHandlerUsers extends Component {
                 <td>{book.id}</td>
                 <td>{book.title}</td>
                 <td>{book.info}</td>
-            </tr>s
+            </tr>
         });
 
         return (

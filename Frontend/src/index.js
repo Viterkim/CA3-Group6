@@ -12,6 +12,8 @@ import Books from './pages/Books';
 import auth from "./authorization/auth";
 import ChangeBooks from './pages/ChangeBooks';
 import EditBook from './components/EditBook';
+import ChangeUsers from './pages/ChangeUsers';
+import EditUser from './components/EditUser';
 
 function requireAuth(nextState, replace) {
   if (!auth.loggedIn) {
@@ -31,6 +33,8 @@ ReactDOM.render((
       <Route path="books" component={Books} />
       <Route path="book/:id/:title/:info/:user" component={EditBook} />
       <Route path="change-books" component={ChangeBooks} />
+      <Route path="change-users" component={ChangeUsers} />
+      <Route path="user/:username/:role" component={EditUser} />
       <Route path="login" component={Login} />
       <Route path="logout" component={Logout} />
     </Route>

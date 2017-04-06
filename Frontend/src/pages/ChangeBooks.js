@@ -167,7 +167,7 @@ class ChangeBooks extends Component {
                   <div className="row">
                     <div className="col s12">
                       <div className="modal-footer">
-                        <a onClick={this.createBookOnServer} href="#!" className="modal-action modal-close waves-effectn orange waves-green btn-flat">Create</a>
+                        <a onClick={this.createBookOnServer} href="#" className="modal-action modal-close waves-effectn orange waves-green btn-flat">Create</a>
                       </div>
                     </div>
                   </div>
