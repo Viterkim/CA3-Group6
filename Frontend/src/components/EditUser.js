@@ -11,7 +11,7 @@ class EditUser extends Component {
     super(props);
     this.state = {
       oldUsername: this.props.params.username
-      ,newUsername: ''
+      ,newUsername: this.props.params.username
       ,role: this.props.params.role
     };
     this.onUsernameChange = this.onUsernameChange.bind(this);
