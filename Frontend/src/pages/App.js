@@ -28,7 +28,7 @@ const App = observer(class App extends Component {
                 <li><NavLink to='/company'>Company</NavLink></li>
                 <li><NavLink to='/books'>Books</NavLink></li>
                 <li>{auth.isUser || auth.isAdmin ? <NavLink to='/change-books'>Add/Edit Books</NavLink> : null}</li>
-                <li>{auth.isAdmin ? <NavLink to='edit-users'>Add/Edit Users</NavLink> : null}</li>
+                <li>{auth.isAdmin ? <NavLink to='/change-users'>Add/Edit Users</NavLink> : null}</li>
                 <li>{auth.isUser || auth.isAdmin ? <NavLink to='/logout'>Log out</NavLink> : <NavLink to='/login'>Log in</NavLink>}</li>
                 <li>{auth.isUser || auth.isAdmin ? <p>Profile: {userName}</p> : null}</li>
               </ul>
