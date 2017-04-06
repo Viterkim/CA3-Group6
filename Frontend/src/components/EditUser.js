@@ -13,8 +13,7 @@ class EditUser extends Component {
       username: this.props.params.username
       , role: this.props.params.role
     };
-    this.onUsernameChange = this.onTitleChange.bind(this);
-    this.onRoleChange = this.onInfoChange.bind(this);
+    this.onUsernameChange = this.onUsernameChange.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.setRoleToUser = this.setRoleToUser.bind(this);
     this.setRoleToAdmin = this.setRoleToAdmin.bind(this);
@@ -72,9 +71,9 @@ class EditUser extends Component {
               </div>
               <h4>Role</h4>
               <div className=" col s3">
-                <ul id='userRoleDropdown' class='dropdown-content'>
-                  <li><a onClick={this.setRoleToUser} href="#"><i class="material-icons">view_module</i>User</a></li>
-                  <li><a onClick={this.setRoleToAdmin} href="#"><i class="material-icons">cloud</i>Admin</a></li>
+                <ul id='userRoleDropdown' className='dropdown-content'>
+                  <li><a onClick={this.setRoleToUser} href="#"><i className="material-icons">view_module</i>User</a></li>
+                  <li><a onClick={this.setRoleToAdmin} href="#"><i className="material-icons">cloud</i>Admin</a></li>
                 </ul>
               </div>
             </div>

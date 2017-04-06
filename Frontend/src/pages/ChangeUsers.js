@@ -8,7 +8,7 @@ import auth from '../authorization/auth';
 import {Link} from 'react-router';
 
 @observer
-class ChangeBooks extends Component {
+class ChangeUsers extends Component {
 
   constructor() {
     super();
@@ -22,6 +22,10 @@ class ChangeBooks extends Component {
       username: ''
       , role: ''
     }
+  }
+
+  componentWillMount() {
+    userData.getDataNoAuth()
   }
 
   deleteUser = (event) => {
@@ -73,10 +77,10 @@ class ChangeBooks extends Component {
         const deleteButtonUsername = `${user.username}`;
         return (
           <div className="row no_margin_bottom padding_bottom_normal" key={user.username}>
-            <div className="col s6 center">
+            <div className="col s3 center">
               <div className="padding_left_right_normal">{user.username}</div>
             </div>
-            <div className="col s6 center">
+            <div className="col s3 center">
               <div className="padding_left_right_normal">{user.role}</div>
             </div>
             <div className="col s3 center">
@@ -144,10 +148,10 @@ class ChangeBooks extends Component {
                       <input onChange={this.onUsernameChange} placeholder="username" id="create_username" type="text"
                              className="validate"/>
                     </div>
-                    <ul id='userRoleDropdown' class='dropdown-content'>
-                      <li><a onClick={this.setRoleToUser} href="#"><i class="material-icons">view_module</i>User</a>
+                    <ul id='userRoleDropdown' className='dropdown-content'>
+                      <li><a onClick={this.setRoleToUser} href="#"><i className="material-icons">view_module</i>User</a>
                       </li>
-                      <li><a onClick={this.setRoleToAdmin} href="#"><i class="material-icons">cloud</i>Admin</a></li>
+                      <li><a onClick={this.setRoleToAdmin} href="#"><i className="material-icons">cloud</i>Admin</a></li>
                     </ul>
                   </div>
                   <div className="row">
@@ -171,3 +175,5 @@ class ChangeBooks extends Component {
     );
   }
 }
+
+export default ChangeUsers;
