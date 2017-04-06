@@ -1,5 +1,6 @@
-import React, {Component, Link} from 'react';
+import React, {Component} from 'react';
 import tableData from '../stores/dataHandlerBooks';
+import {Link} from 'react-router';
 
 class EditBook extends Component{
 
@@ -54,9 +55,12 @@ class EditBook extends Component{
     </div>
 
     <div className="">
-        <button onClick={this.updateBook} className="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">Submit
+      <Link to="/change-books">
+        <button onClick={this.updateBook} className="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">
+          Submit
           <i className="material-icons right">send</i>
         </button>
+      </Link>
     </div>
 
       </div>

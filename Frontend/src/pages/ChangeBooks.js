@@ -15,14 +15,14 @@ class ChangeBooks extends Component {
   }
 
   deleteBook(id) {
-    const bookÍd = id;
-    console.log('I tried to delete book id ' + bookÍd);
+    const bookId = id;
+    console.log('I tried to delete book id ' + bookId);
   }
 
   renderBooks() {
     console.log(tableData.books.length);
-    
-    
+
+
       let bookTableContent = tableData.books.map(function (book) {
         const modalId = 'modal' + book.id;
         const modalIdHash = '#modal' + book.id;
@@ -40,8 +40,8 @@ class ChangeBooks extends Component {
           </div>
         )
       });
-    
-    
+
+
     return (
         <div>
             <div className="row">
@@ -57,7 +57,7 @@ class ChangeBooks extends Component {
   }
 
   render() {
-      
+
     return (
       <div className="container">
         <div className="section background_white">

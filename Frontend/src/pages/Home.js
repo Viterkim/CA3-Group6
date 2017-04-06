@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { observer } from "mobx-react";
 import { Link } from 'react-router';
-import EditBook from "../components/EditBook";
 
 const Home = observer(class Home extends Component {
 

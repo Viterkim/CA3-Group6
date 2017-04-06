@@ -1,6 +1,6 @@
 import {observable, action} from "mobx";
 import axios from "axios"
-import fetchHelper from "./fetchHelpers"
+//import fetchHelper from "./fetchHelpers"
 
 class dataHandlerBooks {
 
@@ -13,7 +13,6 @@ class dataHandlerBooks {
 
   @action
   getDataNoAuth = () => {
-
     var configNoAuth = {
       headers: {
         "Content-type": "Application/json",
@@ -31,7 +30,7 @@ class dataHandlerBooks {
 
   @action
   getData = () => {
-      
+
     var config = {
       headers: {
         "Authorization": `Bearer ${localStorage.token}`,
@@ -39,8 +38,8 @@ class dataHandlerBooks {
       }
     };
 
-    const options = fetchHelper.makeOptions("GET", true);
-    
+    //const options = fetchHelper.makeOptions("GET", true);
+
     axios.get('http://localhost:8084/seedMaven/api/book/all', config)
       .then(function (response) {
           this.setBookData(response.data);
@@ -58,9 +57,8 @@ class dataHandlerBooks {
             "Content-type": "Application/json",
         }
     };
-    axios.post('http://localhost:8084/seedMaven/api/book', {
-      book
-    }, config).then(function (response) {
+    axios.put('http://localhost:8084/seedMaven/api/book', book
+    , config).then(function (response) {
       console.log(response);
     }).catch(function (error) {
       console.log(error);

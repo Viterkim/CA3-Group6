@@ -54,11 +54,19 @@ public class BookFacade
     }
     
     public Book updateBook(int id, String title, String info) {
-        Book book = getEntityManager().find(Book.class, id);
+        System.out.println("Id er: " + id);
+        Query q = getEntityManager().createQuery("SELECT b FROM BOOK b WHERE b.id = :id");
+        q.setParameter("id", id);
+        Book book = (Book) q.getSingleResult();
         book.setInfo(info);
         book.setTitle(title);
-        persist(book);
+        update(book);
         return book;
+    }
+    
+    public Book updateBook(Book b) {
+        update(b);
+        return b;
     }
     
     public Book deleteBook(int id) {
@@ -71,6 +79,14 @@ public class BookFacade
         getEntityManager().getTransaction().begin();
         for (Object o : objs) {
             getEntityManager().persist(o);
+        }
+        getEntityManager().getTransaction().commit();
+    }
+    
+    private void update(Object... objs) {
+        getEntityManager().getTransaction().begin();
+        for (Object o : objs) {
+            getEntityManager().merge(o);
         }
         getEntityManager().getTransaction().commit();
     }

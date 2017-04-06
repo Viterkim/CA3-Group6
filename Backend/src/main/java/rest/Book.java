@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.PUT;
 import javax.ws.rs.ProcessingException;
 
 @Path("book")
@@ -57,6 +58,40 @@ public class Book {
                 .entity(response)
                 .build();
     }
+    
+    @PUT
+    @Path("")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    //@RolesAllowed({"User", "Admin", "user", "admin"})
+    public Response updateBookFromJSON(String content) {
+        //entity.User user = facade.getUserByName(username);   //TODO: Get username from logged in session, store into username
+        System.out.println(content);
+        entity.Book b = getBookFromJson(content);
+        System.out.println("Rest info: " + b.getInfo());
+        entity.Book updated = facade.updateBook(b);
+        //created.setUser(null);
+        String response = getGraphBuilder().toJson(updated, entity.Book.class);
+        
+        //response = formatSingleJSON(response);
+        response = getBooks(response);
+        
+        return Response
+                .status(Response.Status.OK)
+                .entity(response)
+                .build();
+    }
+    
+    public entity.Book getBookFromJson(String json) {
+    JsonObject obj = gson.fromJson(json, JsonObject.class);
+    int id = obj.get("id").getAsInt();
+    String title = obj.get("title").getAsString();
+    String info = obj.get("info").getAsString();
+    String user = obj.get("user").getAsString();
+    entity.Book book = new entity.Book(title, info, facade.getUserByName(user));
+    book.setId(id);
+    return book;
+}
     
     @GET
     @Path("/all")
