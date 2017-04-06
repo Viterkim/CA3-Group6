@@ -38,14 +38,14 @@ public class Book {
     Gson graphBuilder;
     
     @POST
-    @Path("")
+    //@Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     //@RolesAllowed({"User", "Admin", "user", "admin"})
     public Response createBookFromJSON(String content) {
         //entity.User user = facade.getUserByName(username);   //TODO: Get username from logged in session, store into username
         
-        entity.Book b = (entity.Book) gson.fromJson(content, entity.Book.class);
+        entity.Book b = getBookFromJson(content);
 
         entity.Book created = facade.createBook(b);
         //created.setUser(null);
@@ -60,7 +60,7 @@ public class Book {
     }
     
     @PUT
-    @Path("")
+    //@Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     //@RolesAllowed({"User", "Admin", "user", "admin"})
@@ -81,17 +81,6 @@ public class Book {
                 .entity(response)
                 .build();
     }
-    
-    public entity.Book getBookFromJson(String json) {
-    JsonObject obj = gson.fromJson(json, JsonObject.class);
-    int id = obj.get("id").getAsInt();
-    String title = obj.get("title").getAsString();
-    String info = obj.get("info").getAsString();
-    String user = obj.get("user").getAsString();
-    entity.Book book = new entity.Book(title, info, facade.getUserByName(user));
-    book.setId(id);
-    return book;
-}
     
     @GET
     @Path("/all")
@@ -256,6 +245,22 @@ public class Book {
             }
         }
         return null;
+    }
+    
+    public entity.Book getBookFromJson(String json) {
+        JsonObject obj = gson.fromJson(json, JsonObject.class);
+        int id = -1;
+        try {
+            id = obj.get("id").getAsInt();
+        } catch (Exception e) { }
+        String title = obj.get("title").getAsString();
+        String info = obj.get("info").getAsString();
+        String user = obj.get("user").getAsString();
+        entity.Book book = new entity.Book(title, info, facade.getUserByName(user));
+        if (id != -1) {
+            book.setId(id);
+        }
+        return book;
     }
     
 }
