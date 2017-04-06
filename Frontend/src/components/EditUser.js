@@ -10,8 +10,9 @@ class EditUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.params.username
-      , role: this.props.params.role
+      oldUsername: this.props.params.username
+      ,newUsername: ''
+      ,role: this.props.params.role
     };
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.updateUser = this.updateUser.bind(this);
@@ -22,7 +23,8 @@ class EditUser extends Component {
   setRoleToUser = (event) => {
     this.setState(
       {
-        username: this.state.username
+        oldUsername: this.state.oldUsername
+        ,newUsername: this.state.newUsername
         ,role: 'User'
       }
     )
@@ -31,7 +33,8 @@ class EditUser extends Component {
   setRoleToAdmin = (event) => {
     this.setState(
       {
-        username: this.state.username
+        oldUsername: this.state.oldUsername
+        ,newUsername: this.state.newUsername
         ,role: 'Admin'
       }
     )
@@ -39,7 +42,8 @@ class EditUser extends Component {
 
   updateUser = (event) => {
     let user = {
-      username: this.state.username
+      oldUsername: this.state.oldUsername
+      ,newUsername: this.state.newUsername
       ,role: this.state.role
     };
     userData.setData(user);
@@ -49,7 +53,7 @@ class EditUser extends Component {
     const newUsername = event.target.value;
     this.setState(
       {
-        username: newUsername
+        newUsername: newUsername
         ,role: this.state.role
       }
     );
