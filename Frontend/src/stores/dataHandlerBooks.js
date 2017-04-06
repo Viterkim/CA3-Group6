@@ -64,6 +64,38 @@ class dataHandlerBooks {
       console.log(error);
     });
   }
+
+  @action
+  newData(book) {
+    var config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
+        "Content-type": "Application/json",
+      }
+    };
+    axios.post('http://localhost:8084/seedMaven/api/book', book
+      , config).then(function (response) {
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  @action
+  sendDelete(bookId) {
+    var config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
+        "Content-type": "Application/json",
+      }
+    };
+    axios.delete('http://localhost:8084/seedMaven/api/book?bookID=' + bookId
+      , config).then(function (response) {
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
 }
 
 let tableData = new dataHandlerBooks();

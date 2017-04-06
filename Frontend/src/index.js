@@ -13,7 +13,6 @@ import auth from "./authorization/auth";
 import ChangeBooks from './pages/ChangeBooks';
 import EditBook from './components/EditBook';
 
-
 function requireAuth(nextState, replace) {
   if (!auth.loggedIn) {
     replace({

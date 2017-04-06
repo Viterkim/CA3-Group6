@@ -194,3 +194,11 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     border-bottom: 1px solid black;
     box-shadow: 0 1px 0 0 black;
 }
+
+.no_margin_bottom {
+    margin-bottom: 0px;
+}
+
+.padding_bottom_normal {
+    padding-bottom: 20px;
+}
