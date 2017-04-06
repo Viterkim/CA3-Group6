@@ -3,58 +3,108 @@ import React, {Component} from "react"
 import axios from "axios"
 
 class dataHandlerUsers extends Component {
-    @observable users = [];
+  @observable users = [];
 
-    constructor() {
-        super();
-        this.getData();
-    }
+  url = "http://localhost:8084/seedMaven/api/";
 
-    render() {
+  @action
+  setUserData(data) {
+    console.log("Setting new user data!");
+    this.users = data;
+  }
 
-        const userTableContent = users.map(function(index, book) {
-            return <tr key={index}>
-                <td>{book.id}</td>
-                <td>{book.title}</td>
-                <td>{book.info}</td>
-            </tr>s
-        });
+  @action
+  getDataNoAuth = () => {
+    var configNoAuth = {
+      headers: {
+        "Content-type": "Application/json",
+      }
+    };
 
-        return (
-            <table>
-                <thead>
-                    <tr>
-                        <th>Book Id</th>
-                        <th>Book Title</th>
-                        <th>Book Info</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {bookTableContent}
-                </tbody>
-            </table>
-        );
-    }
+    axios.get(this.url + 'user/all', configNoAuth)
+      .then(function (response) {
+        this.setUserData(response.data);
+      }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-    @action
-    getData() {
-        axios.get('/users').then(function(response) {
-            this.users = response.json;
-        }).catch(function(error) {
-            console.log(error);
-        });
-    }
+  @action
+  getData = (username) => {
 
-    @action
-    setData(user) {
-        axios.post('/users', {newUser: user}).then(function(response) {
-            console.log(response);
-        }).catch(function(error) {
-            console.log(error);
-        });
-    }
+    var config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
+        "Content-type": "Application/json",
+      }
+    };
+
+    //const options = fetchHelper.makeOptions("GET", true);
+
+    axios.get(this.url + 'user?username=' + username, config)
+      .then(function (response) {
+        this.setBookData(response.data);
+        console.log("Got new data from server... " + this.books.length + " books");
+      }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  @action
+  setData(user) {
+    console.log("Updating user: " + user);
+    var config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
+        "Content-type": "Application/json",
+      }
+    };
+    axios.put(this.url + 'user', user
+      , config).then(function (response) {
+      console.log(response);
+      this.getData(user);
+    }.bind(this)).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  @action
+  newData(user) {
+    var config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
+        "Content-type": "Application/json",
+      }
+    };
+    axios.post(this.url + 'user', user
+      , config).then(function (response) {
+      console.log(response);
+      this.getData(user.user);
+    }.bind(this)).catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  @action
+  sendDelete(userId, username) {
+    var config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
+        "Content-type": "Application/json",
+      }
+    };
+    axios.get(this.url + 'user/delete?userID=' + userId
+      , config).then(function (response) {
+      console.log(response);
+      this.getData(username);
+    }.bind(this)).catch(function (error) {
+      console.log(error);
+    });
+  }
 }
 
-var dataUsers = new dataHandlerUsers();
+var userData = new dataHandlerUsers();
 
-export default data;
+export default userData;
