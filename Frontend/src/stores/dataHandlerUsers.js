@@ -14,23 +14,6 @@ class dataHandlerUsers {
   }
 
   @action
-  getDataNoAuth = () => {
-    var configNoAuth = {
-      headers: {
-        "Content-type": "Application/json",
-      }
-    };
-
-    axios.get(this.url + 'user/all', configNoAuth)
-      .then(function (response) {
-        this.setUserData(response.data);
-      }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  @action
   getData = (username) => {
 
     var config = {
@@ -39,8 +22,6 @@ class dataHandlerUsers {
         "Content-type": "Application/json",
       }
     };
-
-    //const options = fetchHelper.makeOptions("GET", true);
 
     axios.get(this.url + 'user?username=' + username, config)
       .then(function (response) {

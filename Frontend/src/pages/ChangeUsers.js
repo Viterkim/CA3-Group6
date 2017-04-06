@@ -25,13 +25,13 @@ class ChangeBooks extends Component {
   }
 
   deleteUser = (event) => {
-    userData.deleteUser(event.target.id);
+    userData.sendDelete(event.target.id);
   };
 
   createUserOnServer = () => {
     const newUser = {
       username: this.state.username
-      , role: this.state.role
+      ,role: this.state.role
     };
     userData.newData(newUser);
     const usernameInputField = document.getElementById('create_username');
@@ -69,7 +69,7 @@ class ChangeBooks extends Component {
   renderUsers = () => {
     const userRows = userData.users.map(
       (user) => {
-        const editUrl = `/user/${user.username}`;
+        const editUrl = `/user/${user.username}/${user.role}`;
         const deleteButtonUsername = `${user.username}`;
         return (
           <div className="row no_margin_bottom padding_bottom_normal" key={user.username}>
