@@ -27,6 +27,22 @@ public class UserFacade implements IUserFacade {
         return manager;
     }
 
+    public User createUser(String username, String passwordHash, Role r) {
+        try {
+            User user = new User(username, passwordHash);
+            user.setRole(r);
+            persist(user);
+            return user;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public User createUser(User u) {
+        persist(u);
+        return u;
+    }
+    
     @Override
     public User getUserByUserName(String name) {
         return getEntityManager().find(User.class, name);
@@ -39,6 +55,18 @@ public class UserFacade implements IUserFacade {
     
     public void updateUser(User user) {
         persist(user);
+    }
+    
+    public User deleteUser(String username) {
+        Query q = getEntityManager().createQuery("SELECT u FROM USER u WHERE u.username = :username");
+        q.setParameter("username", username);
+        User u = (User) q.getSingleResult();
+        delete(u);
+        return u;
+    }
+    
+    public User deleteUser(User user) {
+        return deleteUser(user.getUserName());
     }
     
     /*

@@ -1,6 +1,7 @@
 package facades;
 
 import entity.Book;
+import entity.Role;
 import entity.User;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -54,6 +55,14 @@ public class Facade {
         return bookFacade.deleteBook(id);
     }
     
+    public User createUser(String username, String passwordHash, Role r) {
+        return userFacade.createUser(username, passwordHash, r);
+    }
+    
+    public User createUser(User u) {
+        return userFacade.createUser(u);
+    }
+    
     public User getUserByName(String name) {
         return userFacade.getUserByUserName(name);
     }
@@ -64,6 +73,14 @@ public class Facade {
     
     public void updateUser(User user) {
         userFacade.updateUser(user);
+    }
+    
+    public User deleteUser(String username) {
+        return userFacade.deleteUser(username);
+    }
+    
+    public User deleteUser(User user) {
+        return userFacade.deleteUser(user);
     }
     
     /*
