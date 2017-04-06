@@ -44,8 +44,8 @@ class dataHandlerUsers extends Component {
 
     axios.get(this.url + 'user?username=' + username, config)
       .then(function (response) {
-        this.setBookData(response.data);
-        console.log("Got new data from server... " + this.books.length + " books");
+        this.setUserData(response.data);
+        console.log("Got new data from server... " + this.users.length + " user");
       }.bind(this))
       .catch(function (error) {
         console.log(error);
