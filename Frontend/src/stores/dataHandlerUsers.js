@@ -88,14 +88,14 @@ class dataHandlerUsers extends Component {
   }
 
   @action
-  sendDelete(userId, username) {
+  sendDelete(username) {
     var config = {
       headers: {
         "Authorization": `Bearer ${localStorage.token}`,
         "Content-type": "Application/json",
       }
     };
-    axios.get(this.url + 'user/delete?userID=' + userId
+    axios.get(this.url + 'user/delete?username=' + username
       , config).then(function (response) {
       console.log(response);
       this.getData(username);
