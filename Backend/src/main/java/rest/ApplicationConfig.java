@@ -23,6 +23,8 @@ public class ApplicationConfig extends Application {
   private void addRestResourceClasses(Set<Class<?>> resources) {
     resources.add(cors.CorsRequestFilter.class);
     resources.add(cors.CorsResponseFilter.class);
+   // resources.add(httpErrors.GenericExceptionMapper.class);
+   // resources.add(httpErrors.NotFoundExceptionMapper.class);
     resources.add(httpErrors.GenericExceptionMapper.class);
     resources.add(httpErrors.NotFoundExceptionMapper.class);
     resources.add(rest.Admin.class);
@@ -30,10 +32,11 @@ public class ApplicationConfig extends Application {
     resources.add(rest.Book.class);
     resources.add(rest.Test.class);
     resources.add(rest.User.class);
+   // resources.add(security.NotAuthorizedExceptionMapper.class);
     resources.add(security.JWTAuthenticationFilter.class);
-    resources.add(security.Login.class);
-    resources.add(security.NotAuthorizedExceptionMapper.class);
-    resources.add(security.RolesAllowedFilter.class);
+        resources.add(security.Login.class);
+        resources.add(security.NotAuthorizedExceptionMapper.class);
+        resources.add(security.RolesAllowedFilter.class);
   }
   
 }

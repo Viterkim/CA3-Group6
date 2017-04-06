@@ -6,6 +6,7 @@ import {observer} from "mobx-react";
 import tableData from "../stores/dataHandlerBooks";
 import auth from '../authorization/auth';
 import EditBook from '../components/EditBook';
+import { Link } from 'react-router';
 
 class ChangeBooks extends Component {
 
@@ -18,45 +19,45 @@ class ChangeBooks extends Component {
     console.log('I tried to delete book id ' + bookÍd);
   }
 
-  renderTable() {
-
-    const bookTableContent = tableData.books.map(function (book) {
-      const modalId = 'modal' + book.id;
-      return (
-        <tr key={book.id}>
-          <td className="padding_left_right_normal">{book.title}</td>
-          <td className="padding_left_right_normal">{book.info}</td>
-          <td>
-            <a href={modalId} class="waves-effect orange lighten-1 waves-light btn">Edit</a>
-            <EditBook modalId={modalId} id={book.id} title={book.title} info={book.info} user={auth.username} />
-          </td>
-          <td>
-            <a onClick={this.deleteBook(book.id)} href="modal1" class="waves-effect red darken-1 waves-light btn">Delete</a>
-          </td>
-        </tr>
-      )
-    });
-
+  renderBooks() {
+    console.log(tableData.books.length);
+    
+    
+      let bookTableContent = tableData.books.map(function (book) {
+        const modalId = 'modal' + book.id;
+        const modalIdHash = '#modal' + book.id;
+        const url = `/book/${book.id}/${book.title}/${book.info}/${book.user}`;
+        return (
+          <div className="row" key={book.id}>
+              <div className="col s3 center"><div className="padding_left_right_normal">{book.title}</div></div>
+              <div className="col s3 center"><div className="padding_left_right_normal">{book.info}</div></div>
+              <div className="col s3 center"><div className="padding_left_right_normal">
+                  <Link to={url} className="waves-effect orange lighten-1 waves-light btn">Edit</Link>
+              </div></div>
+              <div className="col s3 center"><div className="padding_left_right_normal">
+                  <a onClick={() => this.deleteBook(book.id)} className="waves-effect red darken-1 waves-light btn">Delete</a>
+              </div></div>
+          </div>
+        )
+      });
+    
+    
     return (
-      <table className="background_white striped highlight padding_left_right_normal">
-        <thead>
-        <tr>
-          <th className="padding_left_right_normal">Book Title</th>
-          <th className="padding_left_right_normal">Book Info</th>
-          <th className="padding_left_right_normal">Edit</th>
-          <th className="padding_left_right_normal">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        { bookTableContent }
-        </tbody>
-      </table>
+        <div>
+            <div className="row">
+                <div className="col s3 center"><div className="padding_left_right_normal">Book Title</div></div>
+                <div className="col s3 center"><div className="padding_left_right_normal">Book Info</div></div>
+                <div className="col s3 center"><div className="padding_left_right_normal">Edit</div></div>
+                <div className="col s3 center"><div className="padding_left_right_normal">Delete</div></div>
+            </div>
+            {bookTableContent}
+      </div>
     );
 
   }
 
   render() {
-
+      
     return (
       <div className="container">
         <div className="section background_white">
@@ -71,7 +72,7 @@ class ChangeBooks extends Component {
         <div className="parallax">
           <img id="paralaxImageOne" src="/background_frontpage.jpg" alt="Error"/>
         </div>
-        {this.renderTable()}
+            {this.renderBooks()}
       </div>
     );
   }

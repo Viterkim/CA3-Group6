@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 
 import httpErrors.*;
 import javax.swing.JOptionPane;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.ProcessingException;
@@ -40,11 +41,11 @@ public class Book {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     //@RolesAllowed({"User", "Admin", "user", "admin"})
-    public Response createBookFromJSON(@QueryParam("username") String username, String content) {
-        entity.User user = facade.getUserByName(username);   //TODO: Get username from logged in session, store into username
+    public Response createBookFromJSON(String content) {
+        //entity.User user = facade.getUserByName(username);   //TODO: Get username from logged in session, store into username
         
         entity.Book b = (entity.Book) gson.fromJson(content, entity.Book.class);
-        b.setUser(user);
+
         entity.Book created = facade.createBook(b);
         //created.setUser(null);
         String response = getGraphBuilder().toJson(created, entity.Book.class);

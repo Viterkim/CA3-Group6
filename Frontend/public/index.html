@@ -35,8 +35,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script>
         jQuery(document).ready(function(){
+            console.log("jQuery Modal log...");
             jQuery('.modal').modal();
         });
+        jQuery(document).ready(function() {
+          Materialize.updateTextFields();
+        });
+
     </script>
   </body>
 </html>

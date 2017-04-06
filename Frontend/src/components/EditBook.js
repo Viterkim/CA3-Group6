@@ -3,40 +3,58 @@ import tableData from '../stores/dataHandlerBooks';
 
 class EditBook extends Component{
 
-    updateBook(id, title, info, user){
-      this.props.book.id = id;
-      this.props.book.title = title;
-      this.props.book.info = info;
-      this.props.book.user = user;
-      tableData.setData(this.props.book);
+    constructor(props) {
+        super(props);
+        this.state = {id: this.props.params.id, title: this.props.params.title, info: this.props.params.info, user: this.props.params.user};
+        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onInfoChange = this.onInfoChange.bind(this);
+        this.updateBook = this.updateBook.bind(this);
+    }
+
+    updateBook = function(event) {
+      let book = {id: this.state.id, title: this.state.title, info: this.state.info, user: this.state.user};
+      tableData.setData(book);
+    }
+
+    onTitleChange = function(event) {
+        const newTitle = event.target.value;
+        this.setState({title: newTitle});
+    }
+
+    onInfoChange = function(event) {
+        const newInfo = event.target.value;
+        this.setState({info: newInfo});
     }
 
   render(){
     let bookTitleInput = document.getElementById("bookTitle");
     let bookInfoInput = document.getElementById("bookInfo");
 
-    return (
-    <div>
+    const inputBookTitle = "bookTitle" + this.state.id;
+    const inputBookInfo = "bookInfo" + this.state.id;
 
-      <div id={this.props.modalId} className="modal modal-fixed-footer">
-      <div className="modal-content">
+    return (
+    <div className="container">
+
+      <div className="row">
+      <div className="col s12">
 
         <h4>Title</h4>
         <div className="row">
         <div className="input-field col s12">
-          <input id="bookTitle" type="text" value={this.props.book.title} className="validate" />
-          <label for="bookTitle">Title</label>
+          <input onChange={this.onTitleChange} id={inputBookTitle} type="text" value={this.state.title} className="validate" />
+          <label htmlFor={inputBookTitle}>Title</label>
         </div>
         <h4>Info</h4>
         <div className="input-field col s12">
-          <input id="bookInfo" type="text" value={this.props.book.info} className="validate" />
-          <label for="bookInfo">Info</label>
+          <input onChange={this.onInfoChange} id={inputBookInfo} type="text" value={this.state.info} className="validate" />
+          <label htmlFor={inputBookInfo}>Info</label>
         </div>
         </div>
     </div>
 
-    <div className="modal-footer">
-        <button onClick={this.updateBook(this.props.book.id, bookTitleInput, bookInfoInput, this.props.book.user)} className="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">Submit
+    <div className="">
+        <button onClick={this.updateBook} className="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">Submit
           <i className="material-icons right">send</i>
         </button>
     </div>

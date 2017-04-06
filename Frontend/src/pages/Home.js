@@ -17,8 +17,7 @@ const Home = observer(class Home extends Component {
                 <br/>
                 <br/>
               </p>
-              <a href="#modal1" className="modal-trigger btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></a>
-              <h1 className="header center orange-text text-lighten-2">Welcome to our project</h1>
+                <h1 className="header center orange-text text-lighten-2">Welcome to our project</h1>
               <div className="row center">
                 <h5 className="header col s12 light">A modern single page book store application</h5>
               </div>

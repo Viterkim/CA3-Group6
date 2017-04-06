@@ -6,7 +6,7 @@ import tableData from "../stores/dataHandlerBooks";
 class Books extends Component {
 
   componentWillMount() {
-    tableData.getData();
+    tableData.getDataNoAuth();
   }
 
   renderTable() {

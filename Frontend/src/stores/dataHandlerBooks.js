@@ -32,9 +32,16 @@ class dataHandlerBooks {
   @action
   getData = () => {
       
+    var config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
+        "Content-type": "Application/json",
+      }
+    };
+
     const options = fetchHelper.makeOptions("GET", true);
     
-    axios.get('http://localhost:8084/seedMaven/api/book/all', options)
+    axios.get('http://localhost:8084/seedMaven/api/book/all', config)
       .then(function (response) {
           this.setBookData(response.data);
         }.bind(this))
@@ -45,9 +52,15 @@ class dataHandlerBooks {
 
   @action
   setData(book) {
-    axios.post('/books', {
-      newBook: book
-    }).then(function (response) {
+    var config = {
+        headers: {
+            "Authorization": `Bearer ${localStorage.token}`,
+            "Content-type": "Application/json",
+        }
+    };
+    axios.post('http://localhost:8084/seedMaven/api/book', {
+      book
+    }, config).then(function (response) {
       console.log(response);
     }).catch(function (error) {
       console.log(error);
