@@ -62,7 +62,7 @@ class dataHandlerUsers {
     axios.put(this.url + 'user', user
       , config).then(function (response) {
       console.log(response);
-      this.getData(user);
+      this.getDataNoAuth();
     }.bind(this)).catch(function (error) {
       console.log(error);
     });
@@ -79,7 +79,7 @@ class dataHandlerUsers {
     axios.post(this.url + 'user', user
       , config).then(function (response) {
       console.log(response);
-      this.getData(user.user);
+      this.getDataNoAuth();
     }.bind(this)).catch(function (error) {
       console.log(error);
     });
@@ -96,7 +96,7 @@ class dataHandlerUsers {
     axios.get(this.url + 'user/delete?username=' + username
       , config).then(function (response) {
       console.log(response);
-      this.getData(username);
+      this.getDataNoAuth();
     }.bind(this)).catch(function (error) {
       console.log(error);
     });

@@ -69,8 +69,8 @@ class EditUser extends Component {
                        className="validate"
                         placeholder="username" />
               </div>
-              <h4>Role</h4>
               <div className=" col s3">
+                <a className='dropdown-button btn' href='#' data-activates='userRoleDropdown'>Choose Role</a>
                 <ul id='userRoleDropdown' className='dropdown-content'>
                   <li><a onClick={this.setRoleToUser} href="#"><i className="material-icons">view_module</i>User</a></li>
                   <li><a onClick={this.setRoleToAdmin} href="#"><i className="material-icons">cloud</i>Admin</a></li>
@@ -79,14 +79,16 @@ class EditUser extends Component {
             </div>
           </div>
 
-          <div className="">
-            <Link to="/change-users">
-              <button onClick={this.updateUser} className="modal-action modal-close btn waves-effect waves-light"
-                      type="submit" name="action">
-                Submit
-                <i className="material-icons right">send</i>
-              </button>
-            </Link>
+          <div className="row">
+            <div className="col s12">
+              <Link to="/change-users">
+                <button onClick={this.updateUser} className="modal-action modal-close btn waves-effect waves-light"
+                        type="submit" name="action">
+                  Submit
+                  <i className="material-icons right">send</i>
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

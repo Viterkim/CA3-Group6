@@ -144,15 +144,20 @@ class ChangeUsers extends Component {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="input-field col s12">
+                    <div className="input-field col s9">
                       <input onChange={this.onUsernameChange} placeholder="username" id="create_username" type="text"
                              className="validate"/>
                     </div>
-                    <ul id='userRoleDropdown' className='dropdown-content'>
-                      <li><a onClick={this.setRoleToUser} href="#"><i className="material-icons">view_module</i>User</a>
-                      </li>
-                      <li><a onClick={this.setRoleToAdmin} href="#"><i className="material-icons">cloud</i>Admin</a></li>
-                    </ul>
+                  </div>
+                  <div className="row">
+                    <div className="col s3">
+                      <a className='dropdown-button btn' href='#' data-activates='userRoleDropdown'>Choose Role</a>
+                      <ul id='userRoleDropdown' className='dropdown-content'>
+                        <li><a onClick={this.setRoleToUser} href="#"><i className="material-icons">view_module</i>User</a>
+                        </li>
+                        <li><a onClick={this.setRoleToAdmin} href="#"><i className="material-icons">cloud</i>Admin</a></li>
+                      </ul>
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col s12">
