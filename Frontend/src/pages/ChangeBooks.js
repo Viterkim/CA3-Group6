@@ -5,7 +5,6 @@ import React, {Component} from 'react';
 import {observer} from "mobx-react";
 import tableData from "../stores/dataHandlerBooks";
 import auth from '../authorization/auth';
-import EditBook from '../components/EditBook';
 import {Link} from 'react-router';
 
 @observer
@@ -27,14 +26,13 @@ class ChangeBooks extends Component {
     this.render = this.render.bind(this);
   }
 
-  componentDidMount() {
-    tableData.getData();
+  componentWillMount() {
+    tableData.getData(this.state.newBook.user);
   }
 
   deleteBook = (event) => {
     const bookId = parseInt(event.target.id.replace(/[^0-9\.]/g, ''), 10);
-    tableData.sendDelete(bookId);
-    tableData.getData();
+    tableData.sendDelete(bookId, this.state.newBook.user);
   };
 
   createBookOnServer = () => {
@@ -52,7 +50,6 @@ class ChangeBooks extends Component {
     inputTitle.value = '';
     const inputInfo = document.getElementById('create_book_info');
     inputInfo.value = '';
-    tableData.getData();
   };
 
   onTitleChange = (event) => {
@@ -83,8 +80,6 @@ class ChangeBooks extends Component {
 
 
   renderBooks() {
-    console.log(tableData.books.length);
-
     let bookTableContent = tableData.books.map(function (book) {
       const modalId = 'modal' + book.id;
       const modalIdHash = '#modal' + book.id;

@@ -46,8 +46,14 @@ public class Book {
         //entity.User user = facade.getUserByName(username);   //TODO: Get username from logged in session, store into username
         
         entity.Book b = getBookFromJson(content);
-
+        
+        System.out.println("Book was gotten from json: " + content);
+        
         entity.Book created = facade.createBook(b);
+        
+        System.out.println("Created new book: " + created.getTitle() + " with id: " + created.getId());
+        
+        
         //created.setUser(null);
         String response = getGraphBuilder().toJson(created, entity.Book.class);
         //response = formatSingleJSON(response);
@@ -88,7 +94,6 @@ public class Book {
     @Produces(MediaType.APPLICATION_JSON)   //   seedMaven/api/book?username=XYZ
     public Response getBooksFromAll(){
         List<entity.Book> books = facade.getAllBooks();
-
         String response = getGraphBuilder().toJson(books, List.class);
         //response = getGraphBuilder().toJson(response);
         
@@ -101,10 +106,13 @@ public class Book {
     }
     
     @GET
-    @Path("")
+    //@Path("")
     @RolesAllowed({"User", "Admin"})
     @Produces(MediaType.APPLICATION_JSON)   //   seedMaven/api/book?username=XYZ
     public Response getBooksFromUsername(@QueryParam("username") String username){
+        
+        System.out.println("Running get books from username: " + username);
+        
         List<entity.Book> books = null;
         
         if (username.equals("") || username.isEmpty()) {
@@ -114,7 +122,7 @@ public class Book {
             books = facade.getBooks(facade.getUserByName(username));
         }
         String response = getGraphBuilder().toJson(books, List.class);
-        response = getFormattedJSON(response);
+        response = getBooks(response);
         
         return Response
                 .status(Response.Status.OK)
@@ -131,13 +139,13 @@ public class Book {
         try {
             book = facade.getBook(Integer.parseInt(id));
         } catch (Exception e) {
-            throw new NotAuthorizedException("Non numeric value input", Response.Status.CONFLICT);
+            throw new NotAuthorizedException("Non numeric value input or no book with id: " + id, Response.Status.CONFLICT);
         }
         book.setTitle(title);
         book.setInfo(info);
         book = facade.updateBook(book);
         String response = getGraphBuilder().toJson(book, entity.Book.class);
-        response = getFormattedJSON(response);
+        response = getBooks(response);
         
         return Response
                 .status(Response.Status.OK)

@@ -5,9 +5,12 @@ import axios from "axios"
 class dataHandlerBooks {
 
   @observable books = [];
+  
+  url = "http://localhost:8084/seedMaven/api/";
 
   @action
   setBookData(data) {
+    console.log("Setting new book data!");
     this.books = data;
   }
 
@@ -19,7 +22,7 @@ class dataHandlerBooks {
       }
     };
 
-    axios.get('http://localhost:8084/seedMaven/api/book/all', configNoAuth)
+    axios.get(this.url + 'book/all', configNoAuth)
       .then(function (response) {
         this.setBookData(response.data);
       }.bind(this))
@@ -29,7 +32,7 @@ class dataHandlerBooks {
   };
 
   @action
-  getData = () => {
+  getData = (username) => {
 
     var config = {
       headers: {
@@ -40,9 +43,10 @@ class dataHandlerBooks {
 
     //const options = fetchHelper.makeOptions("GET", true);
 
-    axios.get('http://localhost:8084/seedMaven/api/book/all', config)
+    axios.get(this.url + 'book?username=' + username, config)
       .then(function (response) {
           this.setBookData(response.data);
+          console.log("Got new data from server... " + this.books.length + " books");
         }.bind(this))
       .catch(function (error) {
         console.log(error);
@@ -50,17 +54,19 @@ class dataHandlerBooks {
   }
 
   @action
-  setData(book) {
-    var config = {
+  setData(book, user) {
+    console.log("Updating book user: " + user);
+        var config = {
         headers: {
             "Authorization": `Bearer ${localStorage.token}`,
             "Content-type": "Application/json",
         }
     };
-    axios.put('http://localhost:8084/seedMaven/api/book', book
+    axios.put(this.url + 'book', book
     , config).then(function (response) {
       console.log(response);
-    }).catch(function (error) {
+      this.getData(user);
+    }.bind(this)).catch(function (error) {
       console.log(error);
     });
   }
@@ -73,26 +79,28 @@ class dataHandlerBooks {
         "Content-type": "Application/json",
       }
     };
-    axios.post('http://localhost:8084/seedMaven/api/book', book
+    axios.post(this.url + 'book', book
       , config).then(function (response) {
       console.log(response);
-    }).catch(function (error) {
+      this.getData(book.user);
+    }.bind(this)).catch(function (error) {
       console.log(error);
     });
   }
 
   @action
-  sendDelete(bookId) {
+  sendDelete(bookId, username) {
     var config = {
       headers: {
         "Authorization": `Bearer ${localStorage.token}`,
         "Content-type": "Application/json",
       }
     };
-    axios.delete('http://localhost:8084/seedMaven/api/book?bookID=' + bookId
+    axios.get(this.url + 'book/delete?bookID=' + bookId
       , config).then(function (response) {
       console.log(response);
-    }).catch(function (error) {
+      this.getData(username);
+    }.bind(this)).catch(function (error) {
       console.log(error);
     });
   }

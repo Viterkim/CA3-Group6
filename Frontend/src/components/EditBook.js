@@ -19,7 +19,7 @@ class EditBook extends Component {
 
   updateBook = function (event) {
     let book = {id: this.state.id, title: this.state.title, info: this.state.info, user: this.state.user};
-    tableData.setData(book);
+    tableData.setData(book, this.state.user);
   }
 
   onTitleChange = function (event) {
