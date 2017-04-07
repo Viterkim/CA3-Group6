@@ -37,7 +37,6 @@ export default class About extends Component{
         <p>
           <br/>
           <br/>
-
           <br/>
           <br/>
           <br/>
