@@ -202,3 +202,23 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 .padding_bottom_normal {
     padding-bottom: 20px;
 }
+
+.padding_left_right_top_bottom_normal {
+    padding: 30px;
+}
+
+#transparent_background_modal {
+    position: fixed;
+    top: 0;
+    display: block;
+    left: 0;
+    background: rgba(0, 0, 0, 0.54);
+    z-index: -1;
+    width: 3000px;
+    height: 3000px;
+}
+
+iframe#documentation_frame {
+    width: 100%;
+    height: 3000px;
+}

@@ -244,7 +244,7 @@ public class User {
             String oldUsername = obj.get("oldUsername").getAsString();
             String newUsername = obj.get("newUsername").getAsString();
             String rolename = obj.get("role").getAsString();
-            userObj = facade.updateUsername(oldUsername, newUsername);
+            //userObj = facade.updateUsername(oldUsername, newUsername);
             userObj = facade.updateRole(newUsername, new Role(rolename));
         } catch (Exception e) {
             //Not updating username...

@@ -23,6 +23,8 @@ class ChangeBooks extends Component {
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onInfoChange = this.onInfoChange.bind(this);
     this.deleteBook = this.deleteBook.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.render = this.render.bind(this);
   }
 
@@ -36,6 +38,7 @@ class ChangeBooks extends Component {
   };
 
   createBookOnServer = () => {
+    this.closeModal();
     tableData.newData(this.state.newBook);
     this.setState(
       {
@@ -78,6 +81,21 @@ class ChangeBooks extends Component {
     )
   };
 
+  showModal = () => {
+    console.log('Doing opening of modal');
+    const modalDiv = document.getElementById('createBook');
+    const modalBackground = document.getElementById('transparent_background_modal');
+    modalDiv.style.display = 'block';
+    modalBackground.style.zIndex = 5;
+  };
+
+  closeModal = () => {
+    console.log('Doing close of modal');
+    const modalDiv = document.getElementById('createBook');
+    const modalBackground = document.getElementById('transparent_background_modal');
+    modalDiv.style.display = 'none';
+    modalBackground.style.zIndex = -9;
+  };
 
   renderBooks() {
     let bookTableContent = tableData.books.map(function (book) {
@@ -107,7 +125,6 @@ class ChangeBooks extends Component {
       )
     }.bind(this));
 
-
     return (
       <div className="background_white">
         <div className="row">
@@ -127,11 +144,9 @@ class ChangeBooks extends Component {
         {bookTableContent}
       </div>
     );
-
   }
 
   render() {
-
     return (
       <div className="container">
         <div className="section background_white">
@@ -143,12 +158,13 @@ class ChangeBooks extends Component {
             </div>
             <div className="col s12 m4">
               <div className="right padding_left_right_normal">
-                <a href="#createBook" className="btn-floating btn-large waves-effect waves-light red">
+                <a onClick={this.showModal} className="btn-floating btn-large waves-effect waves-light red">
                   <i className="material-icons">add</i>
                 </a>
               </div>
+              <span id="transparent_background_modal"></span>
               <div id="createBook" className="modal">
-                <div className="modal-content">
+                <div className="padding_left_right_top_bottom_normal">
                   <div className="row">
                     <div className="col s12">
                       <h4>Create New Book</h4>
@@ -166,9 +182,7 @@ class ChangeBooks extends Component {
                   </div>
                   <div className="row">
                     <div className="col s12">
-                      <div className="modal-footer">
-                        <a onClick={this.createBookOnServer} href="#" className="modal-action modal-close waves-effectn orange waves-green btn-flat">Create</a>
-                      </div>
+                      <a onClick={this.createBookOnServer} href="#" className="modal-action modal-close waves-effect orange waves-green btn-flat">Create</a>
                     </div>
                   </div>
                 </div>

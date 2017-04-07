@@ -17,6 +17,8 @@ class ChangeUsers extends Component {
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.setRoleToUser = this.setRoleToUser.bind(this);
     this.setRoleToAdmin = this.setRoleToAdmin.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
     this.state = {
       username: ''
@@ -33,6 +35,7 @@ class ChangeUsers extends Component {
   };
 
   createUserOnServer = () => {
+    this.closeModal();
     const newUser = {
       username: this.state.username
       ,role: this.state.role
@@ -68,6 +71,22 @@ class ChangeUsers extends Component {
         , role: this.state.username
       }
     )
+  };
+
+  showModal = () => {
+    console.log('Doing opening of modal');
+    const modalDiv = document.getElementById('createUser');
+    const modalBackground = document.getElementById('transparent_background_modal');
+    modalDiv.style.display = 'block';
+    modalBackground.style.zIndex = 5;
+  };
+
+  closeModal = () => {
+    console.log('Doing close of modal');
+    const modalDiv = document.getElementById('createUser');
+    const modalBackground = document.getElementById('transparent_background_modal');
+    modalDiv.style.display = 'none';
+    modalBackground.style.zIndex = -9;
   };
 
   renderUsers = () => {
@@ -132,19 +151,20 @@ class ChangeUsers extends Component {
             </div>
             <div className="col s12 m4">
               <div className="right padding_left_right_normal">
-                <a href="#createUser" className="btn-floating btn-large waves-effect waves-light red">
+                <a onClick={this.showModal} className="btn-floating btn-large waves-effect waves-light red">
                   <i className="material-icons">add</i>
                 </a>
               </div>
+              <span id="transparent_background_modal"></span>
               <div id="createUser" className="modal">
-                <div className="modal-content">
+                <div className="padding_left_right_top_bottom_normal">
                   <div className="row">
                     <div className="col s12">
                       <h4>Create New User</h4>
                     </div>
                   </div>
                   <div className="row">
-                    <div className="input-field col s9">
+                    <div className=" col s9">
                       <input onChange={this.onUsernameChange} placeholder="username" id="create_username" type="text"
                              className="validate"/>
                     </div>
@@ -161,10 +181,10 @@ class ChangeUsers extends Component {
                   </div>
                   <div className="row">
                     <div className="col s12">
-                      <div className="modal-footer">
                         <a onClick={this.createUserOnServer} href="#!"
-                           className="modal-action modal-close waves-effectn orange waves-green btn-flat">Create</a>
-                      </div>
+                           className="modal-action modal-close waves-effectn orange waves-green btn-flat">
+                          Create
+                        </a>
                     </div>
                   </div>
                 </div>

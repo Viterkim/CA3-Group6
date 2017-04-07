@@ -30,7 +30,7 @@ const App = observer(class App extends Component {
                 <li>{auth.isUser || auth.isAdmin ? <NavLink to='/change-books'>Add/Edit Books</NavLink> : null}</li>
                 <li>{auth.isAdmin ? <NavLink to='/change-users'>Add/Edit Users</NavLink> : null}</li>
                 <li>{auth.isUser || auth.isAdmin ? <NavLink to='/logout'>Log out</NavLink> : <NavLink to='/login'>Log in</NavLink>}</li>
-                <li>{auth.isUser || auth.isAdmin ? <p>Profile: {userName}</p> : null}</li>
+                <li>{auth.isUser || auth.isAdmin ? <li>Profile: {userName}</li> : null}</li>
               </ul>
 
               <ul id="nav-mobile" className="side-nav">

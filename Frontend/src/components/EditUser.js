@@ -69,7 +69,7 @@ class EditUser extends Component {
             <h4>Edit User</h4>
             <div className="row">
               <div className="input-field col s9">
-                <input onChange={this.onUsernameChange} id="usernameInput" type="text" value={this.state.username}
+                <input disabled onChange={this.onUsernameChange} id="usernameInput" type="text" value={this.state.username}
                        className="validate"
                         placeholder="username" />
               </div>
