@@ -15,6 +15,7 @@ class ChangeUsers extends Component {
     this.createUserOnServer = this.createUserOnServer.bind(this);
     this.renderUsers = this.renderUsers.bind(this);
     this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
     this.setRoleToUser = this.setRoleToUser.bind(this);
     this.setRoleToAdmin = this.setRoleToAdmin.bind(this);
     this.showModal = this.showModal.bind(this);
@@ -22,12 +23,13 @@ class ChangeUsers extends Component {
     this.deleteUser = this.deleteUser.bind(this);
     this.state = {
       username: ''
-      , role: ''
+      ,password: ''
+      ,role: ''
     }
   }
 
   componentWillMount() {
-    userData.getDataNoAuth()
+    userData.getDataAll()
   }
 
   deleteUser = (event) => {
@@ -38,18 +40,22 @@ class ChangeUsers extends Component {
     this.closeModal();
     const newUser = {
       username: this.state.username
+      ,password: this.state.password
       ,role: this.state.role
     };
     userData.newData(newUser);
     const usernameInputField = document.getElementById('create_username');
     usernameInputField.value = '';
+    const passwordInputField = document.getElementById('create_password');
+    passwordInputField.value = '';
   };
 
   setRoleToUser = (event) => {
     this.setState(
       {
         username: this.state.username
-        , role: 'User'
+        ,password: this.state.password
+        ,role: 'User'
       }
     )
   };
@@ -58,7 +64,8 @@ class ChangeUsers extends Component {
     this.setState(
       {
         username: this.state.username
-        , role: 'Admin'
+        ,password: this.state.password
+        ,role: 'Admin'
       }
     )
   };
@@ -68,7 +75,19 @@ class ChangeUsers extends Component {
     this.setState(
       {
         username: newUserNameData
-        , role: this.state.username
+        ,password: this.state.password
+        ,role: this.state.role
+      }
+    )
+  };
+
+  onPasswordChange = (event) => {
+    const newPassword = event.target.value;
+    this.setState(
+      {
+        password: newPassword
+        ,username: this.state.username
+        ,role: this.state.role
       }
     )
   };
@@ -109,8 +128,7 @@ class ChangeUsers extends Component {
             </div>
             <div className="col s3 center">
               <div className="padding_left_right_normal">
-                <a id={deleteButtonUsername} onClick={this.deleteUser}
-                   className="waves-effect red darken-1 waves-light btn">Delete</a>
+                <a id={deleteButtonUsername} onClick={this.deleteUser} className="waves-effect red darken-1 waves-light btn">Delete</a>
               </div>
             </div>
           </div>
@@ -168,23 +186,36 @@ class ChangeUsers extends Component {
                       <input onChange={this.onUsernameChange} placeholder="username" id="create_username" type="text"
                              className="validate"/>
                     </div>
-                  </div>
-                  <div className="row">
                     <div className="col s3">
-                      <a className='dropdown-button btn' href='#' data-activates='userRoleDropdown'>Choose Role</a>
+                      <a className='dropdown-button btn' data-activates='userRoleDropdown'>Choose Role</a>
                       <ul id='userRoleDropdown' className='dropdown-content'>
-                        <li><a onClick={this.setRoleToUser} href="#"><i className="material-icons">view_module</i>User</a>
+                        <li>
+                          <a onClick={this.setRoleToUser}><i className="material-icons">view_module</i>User</a>
                         </li>
-                        <li><a onClick={this.setRoleToAdmin} href="#"><i className="material-icons">cloud</i>Admin</a></li>
+                        <li>
+                          <a onClick={this.setRoleToAdmin}><i className="material-icons">cloud</i>Admin</a>
+                        </li>
                       </ul>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col s12">
-                        <a onClick={this.createUserOnServer} href="#!"
-                           className="modal-action modal-close waves-effectn orange waves-green btn-flat">
-                          Create
-                        </a>
+                      <input onChange={this.onPasswordChange} placeholder="password" id="create_password" type="text"
+                             className="validate"/>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col s8">
+                      <a onClick={this.createUserOnServer}
+                         className="left waves-effect orange waves-green btn-flat z-depth-1">
+                        Create
+                      </a>
+                    </div>
+                    <div className="col s4">
+                      <a onClick={this.closeModal}
+                         className="right waves-effect red waves-red btn-flat z-depth-1">
+                        Close
+                      </a>
                     </div>
                   </div>
                 </div>

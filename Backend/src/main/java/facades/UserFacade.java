@@ -39,6 +39,8 @@ public class UserFacade implements IUserFacade {
     }
     
     public User createUser(User u) {
+        System.out.println(u.toString());
+        u.setRole( getRole(u.getRole().getRoleName()) );
         persist(u);
         return u;
     }
@@ -118,6 +120,13 @@ public class UserFacade implements IUserFacade {
             getEntityManager().remove(o);
         }
         getEntityManager().getTransaction().commit();
+    }
+
+    private Role getRole(String roleName) {
+        Query q = getEntityManager().createQuery("SELECT r FROM ROLE r WHERE r.name = :rolename");
+        q.setParameter("rolename", roleName);
+        Role role = (Role) q.getSingleResult();
+        return role;
     }
     
 }

@@ -42,19 +42,15 @@ public class User {
     public Response createUserFromJSON(String content) {
         //entity.User user = facade.getUserByName(username);   //TODO: Get username from logged in session, store into username
         
-        entity.User b = getUserFromJson(content);
+        entity.User user = getUserFromJson(content);
         
         System.out.println("User was gotten from json: " + content);
         
-        entity.User created = facade.createUser(b);
+        entity.User created = facade.createUser(user);
         
         System.out.println("Created new user: " + created.getUserName());
-        
-        
-        //created.setUser(null);
-        String response = getGraphBuilder().toJson(created, entity.Book.class);
-        //response = formatSingleJSON(response);
-        response = getUsers(response);
+
+        String response = getGraphBuilder().toJson(created, entity.User.class);
         
         return Response
                 .status(Response.Status.OK)
@@ -226,7 +222,7 @@ public class User {
         JsonObject obj = gson.fromJson(json, JsonObject.class);
         String username = obj.get("username").getAsString();
         String password = obj.get("password").getAsString();
-        String rolename = obj.get("rolename").getAsString();
+        String rolename = obj.get("role").getAsString();
         entity.User user = null;
         try {
             user = new entity.User(username, PasswordStorage.createHash(password));

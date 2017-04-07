@@ -14,13 +14,13 @@ class dataHandlerUsers {
   }
 
   @action
-  getDataNoAuth = () => {
+  getDataAll = () => {
     var configNoAuth = {
       headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
         "Content-type": "Application/json",
       }
     };
-
     axios.get(this.url + 'user/all', configNoAuth)
       .then(function (response) {
         this.setUserData(response.data);
@@ -62,7 +62,7 @@ class dataHandlerUsers {
     axios.put(this.url + 'user', user
       , config).then(function (response) {
       console.log(response);
-      this.getDataNoAuth();
+      this.getDataAll();
     }.bind(this)).catch(function (error) {
       console.log(error);
     });
@@ -79,7 +79,7 @@ class dataHandlerUsers {
     axios.post(this.url + 'user', user
       , config).then(function (response) {
       console.log(response);
-      this.getDataNoAuth();
+      this.getDataAll();
     }.bind(this)).catch(function (error) {
       console.log(error);
     });
@@ -96,7 +96,7 @@ class dataHandlerUsers {
     axios.get(this.url + 'user/delete?username=' + username
       , config).then(function (response) {
       console.log(response);
-      this.getDataNoAuth();
+      this.getDataAll();
     }.bind(this)).catch(function (error) {
       console.log(error);
     });

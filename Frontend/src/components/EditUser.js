@@ -12,9 +12,11 @@ class EditUser extends Component {
     this.state = {
       oldUsername: this.props.params.username
       ,newUsername: this.props.params.username
+      ,password: ''
       ,role: this.props.params.role
     };
     this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.setRoleToUser = this.setRoleToUser.bind(this);
     this.setRoleToAdmin = this.setRoleToAdmin.bind(this);
@@ -25,6 +27,7 @@ class EditUser extends Component {
       {
         oldUsername: this.state.oldUsername
         ,newUsername: this.state.newUsername
+        ,password: this.state.password
         ,role: 'User'
       }
     )
@@ -35,6 +38,7 @@ class EditUser extends Component {
       {
         oldUsername: this.state.oldUsername
         ,newUsername: this.state.newUsername
+        ,password: this.state.password
         ,role: 'Admin'
       }
     )
@@ -44,6 +48,7 @@ class EditUser extends Component {
     let user = {
       oldUsername: this.state.oldUsername
       ,newUsername: this.state.newUsername
+      ,password: this.state.password
       ,role: this.state.role
     };
     userData.setData(user);
@@ -54,6 +59,18 @@ class EditUser extends Component {
     this.setState(
       {
         newUsername: newUsername
+        ,password: this.state.password
+        ,role: this.state.role
+      }
+    );
+  };
+
+  onPasswordChange = (event) => {
+    const newPassword = event.target.value;
+    this.setState(
+      {
+        newUsername: this.state.newUsername
+        ,password: newPassword
         ,role: this.state.role
       }
     );
@@ -62,29 +79,52 @@ class EditUser extends Component {
   render() {
     return (
       <div className="container">
-
+        <p>
+          <br/>
+          <br/>
+          <br/>
+        </p>
         <div className="row">
           <div className="col s12">
-
-            <h4>Edit User</h4>
-            <div className="row">
-              <div className="input-field col s9">
-                <input disabled onChange={this.onUsernameChange} id="usernameInput" type="text" value={this.state.username}
-                       className="validate"
-                        placeholder="username" />
-              </div>
-              <div className=" col s3">
-                <a className='dropdown-button btn' href='#' data-activates='userRoleDropdown'>Choose Role</a>
-                <ul id='userRoleDropdown' className='dropdown-content'>
-                  <li><a onClick={this.setRoleToUser} href="#"><i className="material-icons">view_module</i>User</a></li>
-                  <li><a onClick={this.setRoleToAdmin} href="#"><i className="material-icons">cloud</i>Admin</a></li>
-                </ul>
-              </div>
+            <div className="padding_left_right_normal">
+              <h4>Edit User</h4>
             </div>
           </div>
-
-          <div className="row">
-            <div className="col s12">
+        </div>
+        <div className="row">
+          <div className="input-field col s9">
+            <div className="padding_left_right_normal">
+                <input disabled onChange={this.onUsernameChange} id="usernameInput" type="text" value={this.state.oldUsername}
+                       className="validate"
+                        placeholder="username" />
+            </div>
+          </div>
+          <div className=" col s3">
+            <div className="padding_left_right_normal">
+              <a className='dropdown-button btn' data-activates='userRoleDropdown'>Choose Role</a>
+              <ul id='userRoleDropdown' className='dropdown-content'>
+                <li>
+                  <a onClick={this.setRoleToUser}><i className="material-icons">view_module</i>User</a>
+                </li>
+                <li>
+                  <a onClick={this.setRoleToAdmin}><i className="material-icons">cloud</i>Admin</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="input-field col s12">
+            <div className="padding_left_right_normal">
+              <input required onChange={this.onPasswordChange} id="passwordInput" type="password" value={this.state.password}
+                   className="validate"
+                   placeholder="password" />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col s12">
+            <div className="padding_left_right_normal">
               <Link to="/change-users">
                 <button onClick={this.updateUser} className="modal-action modal-close btn waves-effect waves-light"
                         type="submit" name="action">
@@ -95,6 +135,11 @@ class EditUser extends Component {
             </div>
           </div>
         </div>
+        <p>
+          <br/>
+          <br/>
+          <br/>
+        </p>
       </div>
     );
   }

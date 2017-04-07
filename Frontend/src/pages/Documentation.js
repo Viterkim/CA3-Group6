@@ -11,8 +11,13 @@ export default class Documentation extends Component{
           <br/>
           <br/>
           <br/>
-          <br/>
-          <br/>
+        </p>
+        <div className="row">
+          <div className="col s12 center">
+            <a className="btn-large waves-effect waves-light orange lighten-1" href="https://github.com/Viterkim/CA3-Group6">Github Repo</a>
+          </div>
+        </div>
+        <p>
           <br/>
         </p>
         <div className="section background_white">
