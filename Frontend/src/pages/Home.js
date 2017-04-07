@@ -17,11 +17,15 @@ const Home = observer(class Home extends Component {
                 <br/>
               </p>
                 <h1 className="header center orange-text text-lighten-2">Welcome to our project</h1>
-              <div className="row center">
-                <h5 className="header col s12 light">A modern single page book store application</h5>
+              <div className="row">
+                <div className=" col s12 center">
+                  <h5 className="light">A modern single page book store application</h5>
+                </div>
               </div>
               <div className="row center">
-                <Link to='/books' id="download-button" className="btn-large waves-effect waves-light orange lighten-1">Books</Link>
+                <div className="col s12">
+                  <Link to='/books' id="download-button" className="btn-large waves-effect waves-light orange lighten-1">Books</Link>
+                </div>
               </div>
               <p>
                 <br/>
