@@ -131,6 +131,32 @@ public class Book {
     }
     
     @GET
+    @Path("/id")
+    //@RolesAllowed({"User", "Admin"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBookFromId(@QueryParam("id") String id){
+        
+        entity.Book book = null;
+        
+        if (id.equals("") || id.isEmpty()) {
+            throw new NotAuthorizedException("Unable to get book from id", Response.Status.CONFLICT);
+        } else {
+            try{
+                book = facade.getBook(Integer.parseInt(id));
+            }catch(Exception e){
+                throw new NotAuthorizedException("Invalid id, please enter a numeric input", Response.Status.CONFLICT);
+            }
+        }
+        String response = getGraphBuilder().toJson(book, entity.Book.class);
+        response = getBooks(response);
+        
+        return Response
+                .status(Response.Status.OK)
+                .entity(response)
+                .build();
+    }
+    
+    @GET
     @Path("/update")
     @RolesAllowed({"User", "Admin"})
     @Produces(MediaType.APPLICATION_JSON)   //   seedMaven/api/book?username=XYZ

@@ -1,11 +1,12 @@
 import {observable, action} from "mobx";
 import axios from "axios"
+const URL = require("../../package.json").serverURL;
 
 class dataHandlerUsers {
 
   @observable users = [];
 
-  url = "http://localhost:8084/seedMaven/api/";
+  url = URL;
 
   @action
   setUserData(data) {

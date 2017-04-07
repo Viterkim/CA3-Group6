@@ -1,12 +1,13 @@
 import {observable, action} from "mobx";
 import axios from "axios"
+const URL = require("../../package.json").serverURL;
 //import fetchHelper from "./fetchHelpers"
 
 class dataHandlerBooks {
 
   @observable books = [];
-  
-  url = "http://localhost:8084/seedMaven/api/";
+
+  url = URL;
 
   @action
   setBookData(data) {
