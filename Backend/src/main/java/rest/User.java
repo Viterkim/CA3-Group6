@@ -105,20 +105,12 @@ public class User {
     }
     
     @PUT
-    @Path("/update")
+    //@Path("")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)   //     seedMaven/api/user?username=XYZ
-    public Response updateUser(@QueryParam("username") String username, @QueryParam("password") String password, @QueryParam("rolename") String rolename) {
-        List<entity.User> users = null;
+    public Response updateUser(String content) {
         
-        if (username.equals("") || username.isEmpty()) {
-            users = facade.getAllUsers();
-        } else {
-            users = new ArrayList<>();
-            users.add(facade.getUserByName(username));
-        }
-        
-        String response = getGraphBuilder().toJson(users, List.class);
-        response = getUsers(response);
+        String response = updateUserFromJson(content);
         
         return Response
                 .status(Response.Status.OK)
@@ -243,6 +235,23 @@ public class User {
         }
         user.setRole(new Role(rolename));
         return user;
+    }
+    
+    public String updateUserFromJson(String json) {
+        JsonObject obj = gson.fromJson(json, JsonObject.class);
+        entity.User userObj = null;
+        try {
+            String oldUsername = obj.get("oldUsername").getAsString();
+            String newUsername = obj.get("newUsername").getAsString();
+            String rolename = obj.get("role").getAsString();
+            userObj = facade.updateUsername(oldUsername, newUsername);
+            userObj = facade.updateRole(newUsername, new Role(rolename));
+        } catch (Exception e) {
+            //Not updating username...
+            throw new NotAuthorizedException(e.getMessage(), Response.Status.CONFLICT);
+        }
+        String s = getGraphBuilder().toJson(userObj);
+        return getUsers(s);
     }
     
 }

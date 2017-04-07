@@ -67,6 +67,10 @@ public class User implements IUser, Serializable{
         this.books = books;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String getUserName() {
         return username;

@@ -75,6 +75,14 @@ public class Facade {
         userFacade.updateUser(user);
     }
     
+    public User updateUsername(String oldname, String newname) {
+        return userFacade.updateUsername(oldname, newname);
+    }
+    
+    public User updateRole(String username, Role r) {
+        return userFacade.updateRole(username, r);
+    }
+    
     public User deleteUser(String username) {
         return userFacade.deleteUser(username);
     }

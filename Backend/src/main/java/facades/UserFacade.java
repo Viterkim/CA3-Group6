@@ -54,7 +54,25 @@ public class UserFacade implements IUserFacade {
     }
     
     public void updateUser(User user) {
-        persist(user);
+        update(user);
+    }
+    
+    public User updateUsername(String oldname, String newname) {
+        Query q = getEntityManager().createQuery("SELECT u FROM USER u where u.username = :username");
+        q.setParameter("username", oldname);
+        User user = (User) q.getSingleResult();
+        user.setUsername(newname);
+        update(user);
+        return user;
+    }
+    
+    public User updateRole(String username, Role r) {
+        Query q = getEntityManager().createQuery("SELECT u FROM USER u where u.username = :username");
+        q.setParameter("username", username);
+        User user = (User) q.getSingleResult();
+        user.setRole(r);
+        update(user);
+        return user;
     }
     
     public User deleteUser(String username) {
@@ -82,6 +100,14 @@ public class UserFacade implements IUserFacade {
         getEntityManager().getTransaction().begin();
         for (Object o : objs) {
             getEntityManager().persist(o);
+        }
+        getEntityManager().getTransaction().commit();
+    }
+    
+    private void update(Object... objs) {
+        getEntityManager().getTransaction().begin();
+        for (Object o : objs) {
+            getEntityManager().merge(o);
         }
         getEntityManager().getTransaction().commit();
     }
