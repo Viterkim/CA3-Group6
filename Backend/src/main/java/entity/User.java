@@ -32,7 +32,6 @@ public class User implements IUser, Serializable{
     private List<Book> books = new ArrayList<>();
 
     public User() throws PasswordStorage.CannotPerformOperationException {
-        
     }
 
     public User(String userName, String password) throws PasswordStorage.CannotPerformOperationException {

@@ -15,14 +15,9 @@ class EditUser extends Component {
       ,password: ''
       ,role: this.props.params.role
     };
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.updateUser = this.updateUser.bind(this);
-    this.setRoleToUser = this.setRoleToUser.bind(this);
-    this.setRoleToAdmin = this.setRoleToAdmin.bind(this);
   }
 
-  setRoleToUser = (event) => {
+  setRoleToUser = ((event) => {
     this.setState(
       {
         oldUsername: this.state.oldUsername
@@ -31,9 +26,9 @@ class EditUser extends Component {
         ,role: 'User'
       }
     )
-  };
+  }).bind(this);
 
-  setRoleToAdmin = (event) => {
+  setRoleToAdmin = ((event) => {
     this.setState(
       {
         oldUsername: this.state.oldUsername
@@ -42,9 +37,9 @@ class EditUser extends Component {
         ,role: 'Admin'
       }
     )
-  };
+  }).bind(this);
 
-  updateUser = (event) => {
+  updateUser = ((event) => {
     let user = {
       oldUsername: this.state.oldUsername
       ,newUsername: this.state.newUsername
@@ -52,9 +47,9 @@ class EditUser extends Component {
       ,role: this.state.role
     };
     userData.setData(user);
-  };
+  }).bind(this);
 
-  onUsernameChange = (event) => {
+  onUsernameChange = ((event) => {
     const newUsername = event.target.value;
     this.setState(
       {
@@ -63,9 +58,9 @@ class EditUser extends Component {
         ,role: this.state.role
       }
     );
-  };
+  }).bind(this);
 
-  onPasswordChange = (event) => {
+  onPasswordChange = ((event) => {
     const newPassword = event.target.value;
     this.setState(
       {
@@ -74,7 +69,7 @@ class EditUser extends Component {
         ,role: this.state.role
       }
     );
-  };
+  }).bind(this);
 
   render() {
     return (

@@ -39,4 +39,4 @@ ReactDOM.render((
       <Route path="logout" component={Logout} />
     </Route>
   </Router>
-), document.getElementById('root'))
+), document.getElementById('root'));
